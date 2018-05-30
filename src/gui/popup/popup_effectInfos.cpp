@@ -73,11 +73,11 @@ void Popup::updateEffectDescription()
 				   if (fm->pattern[pos / 128][pos % 128][songEditor->selectedChannel].note < 128)
 				   {
 					   int baseNote = fm->pattern[pos / 128][pos % 128][songEditor->selectedChannel].note;
-					   texts[0].setString(L"Play a fast triplet arpeggio :\n• " + noteName(baseNote) + L"\n• " + noteName(baseNote + sliders[0].value % 16) + " (" + intervals[sliders[0].value % 16] + L")\n• " + noteName(baseNote + sliders[0].value / 16) + " (" + intervals[sliders[0].value / 16] + ") ");
+					   texts[0].setString(L"Play a fast triplet arpeggio :\nâ€¢ " + noteName(baseNote) + L"\nâ€¢ " + noteName(baseNote + sliders[0].value % 16) + " (" + intervals[sliders[0].value % 16] + L")\nâ€¢ " + noteName(baseNote + sliders[0].value / 16) + " (" + intervals[sliders[0].value / 16] + ") ");
 				   }
 				   else
 				   {
-					   texts[0].setString(L"Play a fast triplet arpeggio :\n• Base note\n• note+" + int2str[sliders[0].value % 16] + " (" + intervals[sliders[0].value % 16] + ") " + L"\n• note+" + int2str[sliders[0].value / 16] + " (" + intervals[sliders[0].value / 16] + ") ");
+					   texts[0].setString(L"Play a fast triplet arpeggio :\nâ€¢ Base note\nâ€¢ note+" + int2str[sliders[0].value % 16] + " (" + intervals[sliders[0].value % 16] + ") " + L"\nâ€¢ note+" + int2str[sliders[0].value / 16] + " (" + intervals[sliders[0].value / 16] + ") ");
 				   }
 				   sliders[0].name.setString("Arpeggio notes");
 				   texts[1].setString("");
@@ -234,7 +234,7 @@ void Popup::updateEffectDescription()
 					if (sliders[0].value < 127)
 					{
 						s = "Decrease ";
-						s += sliders[0].value < 64 ? "fastly" : "slowly";
+						s += sliders[0].value < 64 ? "quickly" : "slowly"; /* Feel free to change every instance of "quickly" with a synonym of your own choice if "quickly" does not feel like that it conveys the same emotion that "fastly" did. */
 					}
 					else if (sliders[0].value == 127)
 					{
@@ -243,7 +243,7 @@ void Popup::updateEffectDescription()
 					else
 					{
 						s = "Increase ";
-						s += sliders[0].value < 192 ? "slowly" : "fastly";
+						s += sliders[0].value < 192 ? "slowly" : "quickly";
 					}
 					texts[0].setString("Smooth channel volume slide :\n" + s);
 
@@ -330,7 +330,7 @@ void Popup::updateEffectDescription()
 					if (sliders[0].value < 127)
 					{
 						s = "Decrease ";
-						s += sliders[0].value < 64 ? "fastly" : "slowly";
+						s += sliders[0].value < 64 ? "quickly" : "slowly";
 					}
 					else if (sliders[0].value == 127)
 					{
@@ -339,7 +339,7 @@ void Popup::updateEffectDescription()
 					else
 					{
 						s = "Increase ";
-						s += sliders[0].value < 192 ? "slowly" : "fastly";
+						s += sliders[0].value < 192 ? "slowly" : "quickly";
 					}
 					texts[0].setString("Smooth global volume slide :\n" + s);
 					texts[1].setString("Decrease	   No change        Increase");
