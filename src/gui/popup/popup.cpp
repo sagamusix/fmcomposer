@@ -251,12 +251,12 @@ void Popup::handleEvents()
 						}
 						else if (i == 1)
 						{
-							export.multitrackAssoc[lists[0].value].clear();
+							streamedExport.multitrackAssoc[lists[0].value].clear();
 							for (unsigned i = 0; i < lists[1].selecteds.size(); i++)
 							{
 								if (lists[1].selecteds[i])
 								{
-									export.multitrackAssoc[lists[0].value].push_back(i);
+									streamedExport.multitrackAssoc[lists[0].value].push_back(i);
 								}
 							}
 
@@ -626,17 +626,15 @@ void Popup::updateBitDepthDescription()
 void Popup::updateMultitrackExportList()
 {
 	lists[1].unselectAll();
-	for (unsigned i = 0; i < export.multitrackAssoc[lists[0].value].size(); i++)
+	for (unsigned i = 0; i < streamedExport.multitrackAssoc[lists[0].value].size(); i++)
 	{
-		lists[1].select(export.multitrackAssoc[lists[0].value][i],true,true);
+		lists[1].select(streamedExport.multitrackAssoc[lists[0].value][i],true,true);
 	}
 }
 
 void Popup::updateTemperament(int temperament, int baseNote) {
 
 	
-
-
 	for (int i = 0; i < 12; i++)
 	{
 		fm->instrument[instrList->value].temperament[i] = fm->tuningRatios[temperament][(i+24-baseNote-3)%12];
