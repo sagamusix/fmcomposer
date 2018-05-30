@@ -20,7 +20,7 @@ extern string exportFileName;
 
 extern PaStream *stream;
 extern PaStreamParameters out;
-static char fxList[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Y' };
+static char fxList[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Y' };
 
 
 
@@ -195,7 +195,7 @@ void Popup::buttonActions(int buttonID)
 
 				int fxValue;
 
-				if (lists[0].value == 7 || lists[0].value == 9)
+				if (lists[0].value == 7 || lists[0].value == 9 || lists[0].value == 11 )
 				{
 					fxValue = sliders[0].value * 16 + sliders[1].value;
 				}

@@ -6,12 +6,19 @@
 
 void previewNote(int instrument, int id, int volume, int isFromMidi);
 
-void previewNoteStop(int id, int isFromMidi);
+void previewNoteStop(int id, int isFromMidi, int midich=-1);
 
-void previewNoteStopAll();
+void previewNoteStopAll(int midich=-1);
 
-void previewNoteBend(fmsynth *f, int value);
+void previewNoteBend(fmsynth *f, int value, int midich);
 
 void configurePreviewChannel(int channel);
+
+typedef struct saveNote{
+	int id;
+	int fmChannel;
+}saveNote;
+
+extern vector<saveNote> noteActive[16];
 
 #endif

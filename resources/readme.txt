@@ -50,6 +50,7 @@ Thanks to Masami Komuro, Klairzaki Fil-Xter and Isaac Zuniga for their contribut
 v1.7 (2018-05-11)
 	- [Fix] Crash after undoing a pasted selection that was out of the pattern bounds
 	- [Fix] Under some circumstances, the song playback position was changed when navigating to the Pattern screen
+	- [Fix] Buggy MIDI export (may be still buggy, but at least, less bad)
 	- [FM engine fix] Portamento effect (G) was wrong when Global Transposition was used
 
 v1.6 (2018-04-14)

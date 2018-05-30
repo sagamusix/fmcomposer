@@ -56,6 +56,7 @@ void midiExport(const char* filename)
 		bufferChVol[i] = fm->ch[i].initial_vol;
 		bufferChPan[i] = fm->ch[i].initial_pan;
 		bufferChPitchbend[i] = -1;
+
 	}
 
 
@@ -185,7 +186,7 @@ void midiExport(const char* filename)
 						{
 							WriteVarLen(cpt * 8, &file);
 							if (fm->pattern[k][j][i].instr<255)
-							lastinstr[i] = fm->pattern[k][j][i].instr;
+								lastinstr[i] = fm->pattern[k][j][i].instr;
 							
 							file.put(144 + midiExportAssocChannels[lastinstr[i]]);
 							lastnote[i] = fm->pattern[k][j][i].note;
@@ -253,20 +254,20 @@ void midiExport(const char* filename)
 			}
 			cpt++;
 		}
-		for (int i = 0; i < FM_ch; i++)
-		{
-			if (lastnote[i] != -1)
-			{
-				WriteVarLen(cpt * 8, &file);
-				file.put(128 + midiExportAssocChannels[lastinstr[i]]);
-				file.write((char*)&lastnote[i], 1);
-				file.write((char*)&lastvol[i], 1);
-				cpt = 0;
-			}
-		}
+		
 
 	}
-
+	for (int i = 0; i < FM_ch; i++)
+	{
+		if (lastnote[i] != -1)
+		{
+			WriteVarLen(cpt * 8, &file);
+			file.put(128 + midiExportAssocChannels[lastinstr[i]]);
+			file.write((char*)&lastnote[i], 1);
+			file.write((char*)&lastvol[i], 1);
+			cpt = 0;
+		}
+	}
 
 	file.put(0x00);
 

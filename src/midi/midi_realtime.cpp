@@ -7,7 +7,7 @@ PmTimestamp midithru_time_proc(void *info);
 
 int selectedMidiDevice;
 PortMidiStream* midiStream;
-PmEvent midiBuffer[3];
+PmEvent midiBuffer[512];
 PmTimestamp current_timestamp;
 vector<int> midiDeviceIds;
 vector<string> midiDeviceNames;
@@ -19,7 +19,7 @@ void midi_getEvents()
 	if (midiReady && Pm_Poll(midiStream))
 	{
 
-		int count = Pm_Read(midiStream, midiBuffer, 3);
+		int count = Pm_Read(midiStream, midiBuffer, 512);
 		if (midiReceive)
 		{
 			for (int i = 0; i < count; i++)
@@ -27,20 +27,42 @@ void midi_getEvents()
 				switch (Pm_MessageStatus(midiBuffer[i].message) / 16)
 				{
 					case 8: // note off
-						if (!midiPedal)
-							previewNoteStop(Pm_MessageData1(midiBuffer[i].message), 1);
+						if (!midiPedal) {
+							if (Pm_MessageData1(midiBuffer[i].message) % 16 < instrList->text.size())
+								previewNoteStop(Pm_MessageData1(midiBuffer[i].message), 1,Pm_MessageStatus(midiBuffer[i].message)%16);
+						}
 						break;
 					case 9: // note on
-						previewNote(instrList->value, Pm_MessageData1(midiBuffer[i].message), Pm_MessageData2(midiBuffer[i].message) / 1.282828, 1);
+						if (Pm_MessageData1(midiBuffer[i].message) % 16 < instrList->text.size())
+							previewNote(Pm_MessageStatus(midiBuffer[i].message)%16, Pm_MessageData1(midiBuffer[i].message), Pm_MessageData2(midiBuffer[i].message) / 1.282828, 1);
+						
 						break;
 					case 0xB: // cc
 						switch (Pm_MessageData1(midiBuffer[i].message))
 						{
+							case 07:{ // channel vol
+								int midich=Pm_MessageStatus(midiBuffer[i].message)%16;
+								for (int i = 0; i < noteActive[midich].size(); i++)
+								{
+									fm_setChannelVolume(fm, noteActive[midich][i].fmChannel, Pm_MessageData1(midiBuffer[i].message)/ 1.282828);
+								}
+								break;
+							}
+							case 0x08: // channel balance
+							case 0x0A: // (10) channel panning
+								{
+									int midich=Pm_MessageStatus(midiBuffer[i].message)%16;
+									for (int i = 0; i < noteActive[midich].size(); i++)
+									{
+										fm_setChannelPanning(fm, noteActive[midich][i].fmChannel, Pm_MessageData1(midiBuffer[i].message)*2);
+									}
+								}
+							break;
 							case 64: // sustain pedal
 								midiPedal = (Pm_MessageData2(midiBuffer[i].message) > 63);
 								if (!midiPedal)
 								{
-									previewNoteStopAll();
+									previewNoteStopAll(Pm_MessageStatus(midiBuffer[i].message)%16);
 								}
 								break;
 							case 0x78: // (120) all sound off
@@ -59,7 +81,8 @@ void midi_getEvents()
 
 						break;
 					case 14: // Pitch Bend
-						previewNoteBend(fm, 2 * Pm_MessageData2(midiBuffer[i].message) + (Pm_MessageData1(midiBuffer[i].message) > 63));
+						if (Pm_MessageData1(midiBuffer[i].message) % 16 < instrList->text.size())
+							previewNoteBend(fm, 2 * Pm_MessageData2(midiBuffer[i].message) + (Pm_MessageData1(midiBuffer[i].message) > 63), Pm_MessageStatus(midiBuffer[i].message)%16);
 						break;
 
 				}

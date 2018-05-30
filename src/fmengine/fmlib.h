@@ -10,6 +10,7 @@ extern "C"{
 	/* Number of operators */
 #define FM_op 6
 
+	
 
 	enum{ FM_NOTE, FM_INSTR, FM_VOL, FM_FXTYPE, FM_FXVALUE };
 	enum { FM_ERR_FILEIO = -1, FM_ERR_FILECORRUPTED = -2, FM_ERR_FILEVERSION = -3 };
@@ -182,6 +183,9 @@ extern "C"{
 
 
 	typedef struct fmsynth{
+
+		char tuningRatios[4][12];
+
 		char songName[64], author[64], comments[256];
 		float globalVolume;
 		float playbackVolume;

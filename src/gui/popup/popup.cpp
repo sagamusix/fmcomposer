@@ -327,10 +327,28 @@ void Popup::handleEvents()
 			{
 				switch (type)
 				{
-					case POPUP_TEMPERAMENT:
-						songModified(1);
-						fm->instrument[instrList->value].temperament[i] = sliders[i].value;
+					case POPUP_TEMPERAMENT:{
+
+						string temperamentNames[3]={"Equal Tempered", "Werckmeister III", "Meantone"};
+						string noteNames[12]={"C","C#","D","D#","E","F","F#","G","G#","A","A#","B"};
+						if (i < 12)
+						{
+							songModified(1);
+							fm->instrument[instrList->value].temperament[i] = sliders[i].value;
+						}
+						else if (i == 12)
+						{
+							sliders[12].setDisplayedValueOnly(temperamentNames[sliders[12].value]);
+							updateTemperament(sliders[12].value, sliders[13].value);
+						}
+						else if (i == 13)
+						{
+							sliders[13].setDisplayedValueOnly(noteNames[sliders[13].value]);
+							updateTemperament(sliders[12].value, sliders[13].value);
+						}
+
 						break;
+						}
 					case POPUP_TRANSPOSE:
 
 
@@ -612,4 +630,20 @@ void Popup::updateMultitrackExportList()
 	{
 		lists[1].select(export.multitrackAssoc[lists[0].value][i],true,true);
 	}
+}
+
+void Popup::updateTemperament(int temperament, int baseNote) {
+
+	
+
+
+	for (int i = 0; i < 12; i++)
+	{
+		fm->instrument[instrList->value].temperament[i] = fm->tuningRatios[temperament][(i+24-baseNote-3)%12];
+		sliders[i].setValue(fm->instrument[instrList->value].temperament[i]);
+	}
+
+
+	songModified(1);
+	
 }

@@ -197,14 +197,38 @@ void Popup::updateEffectDescription()
 
 
 		}
-		case 11: // M - Channel volume
+		case 11:{ // L temperament
+
+			sliders[1].setVisible(true);
+			sliders[0].setMinMax(0, 2);
+			sliders[1].setMinMax(0, 11);
+			texts[0].setString("Set temperament");
+			texts[1].setString("");
+
+			 sliders[0].name.setString("Temperament");
+			  sliders[1].name.setString("Base note");
+
+			string temperamentNames[3]={"Equal Tempered", "Werckmeister III", "Meantone"};
+			string noteNames[12]={"C","C#","D","D#","E","F","F#","G","G#","A","A#","B"};
+
+			sliders[0].setDisplayedValueOnly(temperamentNames[sliders[0].value]);
+			sliders[1].setDisplayedValueOnly(noteNames[sliders[1].value]);
+
+			sprites[0].setColor(Color(255, 255, 255, 0));
+
+
+					break;
+
+
+		}
+		case 12: // M - Channel volume
 			texts[1].setString("Quiet											  Loud");
 			texts[0].setString("Set the channel volume");
 			sliders[0].setMinMax(0, 99);
 			sliders[0].name.setString("Volume");
 			sprites[0].setColor(Color(255, 255, 255, 255));
 			break;
-		case 12:{ // N - Channel volume slide
+		case 13:{ // N - Channel volume slide
 					sliders[0].setMinMax(0, 255);
 					string s;
 					if (sliders[0].value < 127)
@@ -228,7 +252,7 @@ void Popup::updateEffectDescription()
 					sprites[0].setColor(Color(255, 255, 255, 255));
 		}
 			break;
-		case 13:{ // P Panning slide
+		case 14:{ // P Panning slide
 					sliders[0].setMinMax(0, 255);
 					string s;
 					if (sliders[0].value < 127)
@@ -251,7 +275,7 @@ void Popup::updateEffectDescription()
 					sprites[0].setColor(Color(255, 255, 255, 255));
 		}
 			break;
-		case 14:{ // Q Note retrigger
+		case 15:{ // Q Note retrigger
 					sliders[0].setMinMax(0, 8);
 					texts[0].setString("Faslty repeat the note on the same row");
 					texts[1].setString("");
@@ -259,14 +283,14 @@ void Popup::updateEffectDescription()
 					sprites[0].setColor(Color(255, 255, 255, 255));
 		}
 			break;
-		case 15: // R - Reverb send
+		case 16: // R - Reverb send
 			texts[0].setString("Set the channel's reverb amount");
 			texts[1].setString("No reverb							 Max reverb");
 			sliders[0].setMinMax(0, 99);
 			sliders[0].name.setString("Amount");
 			sprites[0].setColor(Color(255, 255, 255, 255));
 			break;
-		case 16:{ // S - Global reverb params
+		case 17:{ // S - Global reverb params
 
 					string s;
 					if (sliders[0].value <= 40)
@@ -285,21 +309,21 @@ void Popup::updateEffectDescription()
 					sprites[0].setColor(Color(255, 255, 255, 255));
 					break;
 		}
-		case 17: // T - Set tempo
+		case 18: // T - Set tempo
 			texts[0].setString("Set the tempo (BPM)");
 			texts[1].setString("Slow												Fast");
 			sliders[0].setMinMax(0, 255);
 			sliders[0].name.setString("Tempo");
 			sprites[0].setColor(Color(255, 255, 255, 255));
 			break;
-		case 18: // V - Global volume
+		case 19: // V - Global volume
 			texts[0].setString("Set the global volume");
 			texts[1].setString("Quiet											  Loud");
 			sliders[0].setMinMax(0, 99);
 			sliders[0].name.setString("Volume");
 			sprites[0].setColor(Color(255, 255, 255, 255));
 			break;
-		case 19:{ // V - Global volume slide
+		case 20:{ // V - Global volume slide
 
 					sliders[0].setMinMax(0, 255);
 					string s;
@@ -322,14 +346,14 @@ void Popup::updateEffectDescription()
 					sliders[0].name.setString("");
 					sprites[0].setColor(Color(255, 255, 255, 255));
 					break; }
-		case 20: // X - Channel panning
+		case 21: // X - Channel panning
 			texts[0].setString("Set channel panning");
 			texts[1].setString("Left				   Center				  Right");
 			sliders[0].setMinMax(0, 255);
 			sliders[0].name.setString("Pan");
 			sprites[0].setColor(Color(255, 255, 255, 255));
 			break;
-		case 21: // Y - Sync marker
+		case 22: // Y - Sync marker
 			sliders[0].setMinMax(0, 255);
 			texts[0].setString("Place a marker that will trigger a callback function");
 			sliders[0].name.setString("Marker ID");

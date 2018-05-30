@@ -564,6 +564,7 @@ void InstrEditor::cleanupInstruments()
 	{
 		if (!fm_isInstrumentUsed(fm, i))
 		{
+			songModified(1);
 			if (i < history.size())
 			{
 				history.erase(history.begin() + i);

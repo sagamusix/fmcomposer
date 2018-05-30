@@ -9,6 +9,9 @@ extern List *instrList;
 static int noteChn[128];
 static int noteChn2[FM_ch];
 static int noteChn3[FM_ch];
+static int noteMidiCh[16];
+
+vector<saveNote> noteActive[16];
 
 static vector<int> recordChannels;
 
@@ -83,6 +86,9 @@ void previewNote(int instrument, int id, int volume, int isFromMidi)
 	noteChn[id] = channel;
 	noteChn3[channel] = id + 1;
 
+	if (isFromMidi)
+		noteActive[instrument].push_back({id,channel});
+
 	// song editor : record notes
 	if (state == songEditor && !instrList->selected && recordChannels.size() > 0)
 	{
@@ -110,38 +116,74 @@ void previewNote(int instrument, int id, int volume, int isFromMidi)
 
 }
 
-void previewNoteBend(fmsynth *f, int value)
+void previewNoteBend(fmsynth *f, int value, int midich)
 {
-	for (unsigned ch = 0; ch<FM_ch; ch++)
+	for (int i = 0; i < noteActive[midich].size(); i++)
 	{
-		if (noteChn2[ch]>0)
-		{
-			f->ch[ch].pitchBend = 1 - (float)(128 - value) * 9.2852373168154813872606848242328e-4;
-		}
+		f->ch[noteActive[midich][i].fmChannel].pitchBend = 1 - (float)(128 - value) * 9.2852373168154813872606848242328e-4;
 	}
 }
 
-void previewNoteStop(int id, int isFromMidi)
+void previewNoteStop(int id, int isFromMidi, int midich)
 {
-
-	fm_stopNote(fm, noteChn[id]);
-	for (unsigned i = 0; i < FM_ch; i++)
+	if (isFromMidi)
 	{
-		if (id == noteChn2[i] - 1)
+		for (int i = 0; i < noteActive[midich].size(); i++)
 		{
+			if (id == noteActive[midich][i].id)
+			{
+				fm_stopNote(fm, noteActive[midich][i].fmChannel);
+				if (state == songEditor)
+				{
+					songEditor->recordFromKeyboard(128, 0, noteActive[midich][i].fmChannel, isFromMidi); // 128 = note off
+				}
+				noteActive[midich].erase(noteActive[midich].begin()+i);
+				
+				break;
+			}
+		}
+		
+	}
+	else {
+		fm_stopNote(fm, noteChn[id]);
+		for (unsigned i = 0; i < FM_ch; i++)
+		{
+			if (id == noteChn2[i] - 1)
+			{
 
+				if (state == songEditor)
+					songEditor->recordFromKeyboard(128, 0, i, isFromMidi); // 128 = note off
+				noteChn2[i] = 0;
+			}
+		}
+	}
+
+
+}
+
+void previewNoteStopAll(int midich)
+{
+	if (midich >= 0)
+	{
+		for (int i = 0; i < noteActive[midich].size(); i++)
+		{
+			
+			fm_stopNote(fm, noteActive[midich][i].fmChannel);
 			if (state == songEditor)
-				songEditor->recordFromKeyboard(128, 0, i, isFromMidi); // 128 = note off
-			noteChn2[i] = 0;
+			{
+				songEditor->recordFromKeyboard(128, 0, noteActive[midich][i].fmChannel, 1); // 128 = note off
+			}
+			noteActive[midich].erase(noteActive[midich].begin()+i);
+			i--;
 		}
 	}
-}
-
-void previewNoteStopAll()
-{
-	for (unsigned i = 0; i < FM_ch; i++)
+	else
 	{
-		noteChn2[i] = 0;
-		fm_stopNote(fm, i);
+		for (unsigned i = 0; i < FM_ch; i++)
+		{
+			noteChn2[i] = 0;
+			fm_stopNote(fm, i);
+		}
 	}
+	
 }

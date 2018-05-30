@@ -219,6 +219,23 @@ fmsynth* fm_create(int _sampleRate)
 		expEnv[98] = 0.5;
 		expEnv[99] = expVol[99] = expVolOp[99] = 1;
 
+		const char tuningRatios[4][12]= {
+			{0,0,0,0,0,0,0,0,0,0,0,0},
+			{12,2,4,6,2,10,0,8,4,0,8,4},
+			{10,-14,3,20,-3,14,-10,7,-17,0,17,-7}
+
+		};
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 12; j++)
+			{
+				f->tuningRatios[i][j]=tuningRatios[i][j];
+			}
+		}
+
+
+		 
+
 		fm_setDefaults(f);
 
 		if (!fm_setSampleRate(f, _sampleRate))
@@ -309,12 +326,12 @@ void fm_calcOpVol(fm_operator *o, int note, int volume)
 /* Calculates the pitch of each operator */
 void fm_calcPitch(fmsynth* f, int ch, int note)
 {
-
+	int noteOrig = note;
 	note = clamp(note + f->ch[ch].transpose + f->transpose * ((f->ch[ch].instr->flags & FM_INSTR_TRANSPOSABLE) >> 2), 0, 127);
 
 	f->ch[ch].note = note;
 
-	float frequency = f->noteIncr[note] + f->noteIncr[note] * SEMITONE_RATIO* f->ch[ch].instr->temperament[note % 12];
+	float frequency = f->noteIncr[note] + f->noteIncr[note] * SEMITONE_RATIO* f->ch[ch].instr->temperament[noteOrig % 12];
 
 	for (unsigned op = 0; op < FM_op; ++op)
 	{
@@ -416,6 +433,15 @@ void _fm_render(fmsynth* f, float* buffer, unsigned length)
 							break;
 						case 'C': // jump row
 							f->tempRow = f->ch[ch].fxData;
+							break;
+						case 'L': // temperament
+							for (int i = 0; i < f->instrumentCount; i++)
+							{
+								for (int j = 0; j < 12; j++)
+								{
+									f->instrument[i].temperament[j] = f->tuningRatios[f->ch[ch].fxData/16][(j+24-f->ch[ch].fxData%16-3)%12];
+								}
+							}
 							break;
 						case 'G': // portamento
 							// update portamento dest frequency if note set

@@ -71,6 +71,7 @@ class Popup{
 	void updateExportSliders();
 	void updateMultitrackExportList();
 	void updateWindow();
+	void updateTemperament(int temperament, int baseNote);
 	//void show(string text, int delay);
 };
 

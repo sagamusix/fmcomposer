@@ -146,13 +146,13 @@ void SongEditor::preSelectPopupEffect()
 	// pre-select effect
 	if (selectedType == 3 && fm->pattern[fm->order][fm->row][selectedChannel].fx != 255)
 	{
-		int fxLetterToList[26] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 11, 12, 12, 13, 14, 15, 16, 17, 17, 18, 19, 20, 21, 22 };
+		int fxLetterToList[26] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 13, 14, 15, 16, 17, 18, 18, 19, 20, 21, 22, 23 };
 
 		if (fm->pattern[fm->order][fm->row][selectedChannel].fx - 65 >= 0 && fm->pattern[fm->order][fm->row][selectedChannel].fx - 65 < 26)
 			popup->lists[0].select(fxLetterToList[fm->pattern[fm->order][fm->row][selectedChannel].fx - 65]);
 
 		/* vibrato/tremolo : two sliders*/
-		if (popup->lists[0].value == 7 || popup->lists[0].value == 9)
+		if (popup->lists[0].value == 7 || popup->lists[0].value == 9 || popup->lists[0].value == 11)
 		{
 			popup->sliders[0].setValue(fm->pattern[fm->order][fm->row][selectedChannel].fxdata / 16);
 			popup->sliders[1].setValue(fm->pattern[fm->order][fm->row][selectedChannel].fxdata % 16);

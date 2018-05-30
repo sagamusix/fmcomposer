@@ -15,6 +15,7 @@ void setEffectList(List* list)
 	list->add("I - Pitch bend");
 	list->add("J - Tremolo");
 	list->add("K - Instrument control");
+	list->add("L - Global temperament");
 	list->add("M - Channel volume");
 	list->add("N - Channel volume slide");
 	list->add("P - Panning slide");
@@ -480,7 +481,7 @@ void Popup::show(int _type, int param)
 
 			break;
 		case POPUP_TEMPERAMENT:
-			setSize(320, 400);
+			setSize(580, 400);
 			title.setString("Edit temperament");
 			texts.push_back(Text("Tuning in cents for each note", font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
@@ -503,6 +504,12 @@ void Popup::show(int _type, int param)
 			buttons.push_back(Button(w - 65, h - 50, "Close", -1, 8));
 
 			buttons.push_back(Button(250, 88, "Reset", -1, 8));
+
+			texts.push_back(Text("Presets", font, charSize));
+			texts[1].setColor(colors[BLOCKTEXT]);
+			texts[1].setPosition(320, 40);
+			sliders.push_back(DataSlider(320, 70, 2, 0, "", 0));
+			sliders.push_back(DataSlider(320, 100, 11, 0, "Base note", 0));
 
 			break;
 		case POPUP_INSERTROWS:
