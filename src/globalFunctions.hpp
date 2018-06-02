@@ -19,19 +19,19 @@
 
 
 template <typename T, typename T2>
-constexpr T min(T x, T2 y)
+ T min(T x, T2 y)
 {
 	return x < y ? x : y;
 }
 
 template <typename T, typename T2>
-constexpr T max(T x, T2 y)
+ T max(T x, T2 y)
 {
 	return x > y ? x : y;
 }
 
 template <typename T, typename T2, typename T3>
-constexpr T clamp(T x, T2 low, T3 high)
+ T clamp(T x, T2 low, T3 high)
 {
 	return x > high ? high : (x < low ? low : x);
 }
@@ -85,7 +85,7 @@ T toNumber(const string& numberAsString)
 	return valor;
 }
 
-
+vector<string> split(const string& str, const string& delim);
 
 void updateViews(int width, int height);
 

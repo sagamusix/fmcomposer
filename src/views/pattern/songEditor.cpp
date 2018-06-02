@@ -615,9 +615,9 @@ void SongEditor::resetView(int width, int height)
 
 void SongEditor::setScroll(float pos)
 {
-	scroll = clamp(pos, 0, fm_getPatternSize(fm, fm->order) - 1);
-	patternView.setCenter(patternView.getCenter().x, (int)round(max(-6, scroll - halfPatternHeightView)*ROW_HEIGHT) + (float)windowHeight / 2);
-	patNumView.setCenter((float)windowWidth / 2, (int)round(max(-6, scroll - halfPatternHeightView)*ROW_HEIGHT) + (float)windowHeight / 2);
+	scroll = clamp(pos, 0, (float)fm_getPatternSize(fm, fm->order) - 1);
+	patternView.setCenter(patternView.getCenter().x, (int)round(std::max(-6.f, scroll - halfPatternHeightView)*ROW_HEIGHT) + (float)windowHeight / 2);
+	patNumView.setCenter((float)windowWidth / 2, (int)round(std::max(-6.f, scroll - halfPatternHeightView)*ROW_HEIGHT) + (float)windowHeight / 2);
 }
 
 void SongEditor::updateScrollbar()

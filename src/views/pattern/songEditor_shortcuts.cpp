@@ -2,7 +2,6 @@
 
 
 
-
 void SongEditor::handleShortcuts()
 {//printf("%d,",evt.key.code);
 
@@ -313,6 +312,30 @@ void SongEditor::handleShortcuts()
 
 
 			case Keyboard::V:// coller
+				//string clipboard=sf::Clipboard::getString();
+
+			/*	if (sf::Clipboard::getString() != "")
+				{
+					vector<string> splitted = split(clipboard,",");
+					if (splitted.size() > 2)
+					{
+						int width = atoi(splitted[0].c_str());
+						int height = atoi(splitted[1].c_str());
+						saveToHistory(fm->row, height);
+						saveToHistory(fm->row, height);
+						for (int i = 0; i < width; i++)
+						{
+							for (int j = 0; j < height; j++)
+							{
+
+							}
+						}
+						saveToHistory(fm->row, height);
+						saveToHistory(fm->row, height);
+					}
+					
+
+				}*/
 				if (copiedSelection.data.size())
 				{
 
@@ -322,6 +345,7 @@ void SongEditor::handleShortcuts()
 					saveToHistory(fm->row, copiedSelection.data[0].size());
 					saveToHistory(fm->row, copiedSelection.data[0].size());
 				}
+				
 				break;
 			case Keyboard::A:// tout sélectionner
 				selectedRow = selectedType = selectedChannel = 0;

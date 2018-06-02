@@ -7,9 +7,9 @@
 #include "../libs/tinyfiledialogs/tinyfiledialogs.h"
 #include <FLAC/stream_encoder.h>
 
-
+#define FMC_ENABLE_MP3_EXPORT
 #ifdef FMC_ENABLE_MP3_EXPORT
-#include <lame/lame.h>
+#include <lame.h>
 #endif
 
 extern fmsynth *phanoo; 
@@ -120,7 +120,9 @@ void exportFinished(){
 	}
 }
 
-void exportStart(){
+void exportStart()
+{
+	
 	streamedExport.running=1;
 	fm_setPosition(fm, streamedExport.fromPattern,0,2);
 	song_play();
@@ -281,6 +283,7 @@ int flacExportFunc(){
 }
 
 int mp3ExportFunc(){
+
 #ifdef FMC_ENABLE_MP3_EXPORT
 	short out[16384];
 	unsigned char mp3_buffer[16384];

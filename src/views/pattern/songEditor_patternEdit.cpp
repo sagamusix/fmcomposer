@@ -37,6 +37,18 @@ void SongEditor::patCopy(patternSelection* copiedData)
 				break;
 		}
 	}
+	/*
+	string clipboard=to_string(copiedData->data.size())+","+to_string(copiedData->data[0].size())+",";
+
+	for (int i = 0; i < copiedData->data.size(); i++)
+	{
+		for (int j = 0; j < copiedData->data[0].size(); j++)
+		{
+			clipboard += to_string(copiedData->data[i][j])+",";
+		}
+	}
+
+	sf::Clipboard::setString(clipboard);*/
 }
 
 void SongEditor::multipleEdit(int action, patternSelection* copiedData, int param, int param2, bool saveHistory)
