@@ -5,19 +5,19 @@
 OpGUI::OpGUI(int _x, int _y, string _name) :
 bg(Vector2f(484, 210)),
 name(_name, font, charSize),
-mode("Frequency", font, charSize),
+mode(lang("operator","Frequency"), font, charSize),
 waveform(*tileset),
-fixedFreq(271, 29, "Ratio"),
+fixedFreq(271, 29, lang("operator","Ratio")),
 mute(160, 5, ICON_MD_VOLUME_OFF,15,0,16),
 envLoop(0, 130, ICON_MD_LOOP,15,0,16),
-pitchEnv("Pitch envelope", font, charSize),
-volEnv("Volume envelope", font, charSize),
-scalings("Keyboard scalings", font, charSize),
+pitchEnv(lang("operator","Pitch envelope"), font, charSize),
+volEnv(lang("operator","Volume envelope"), font, charSize),
+scalings(lang("operator","Keyboard scalings"), font, charSize),
 x(_x),
 y(_y),
 selected(0),
 lfoOffsetBar(Vector2f(1, 26)),
-lfo("LFO", font, charSize)
+lfo(lang("operator","LFO"), font, charSize)
 {
 	mainBasePos = _x;
 	lfoOffsetBar.setFillColor(colors[WAVEFORMOFFSETBAR]);
@@ -28,32 +28,32 @@ lfo("LFO", font, charSize)
 	name.setPosition(0, 4);
 	view.setCenter(x, y);
 	slider.insert(slider.end(), {
-		DataSlider(180, 5, 99, 0, "Volume", 99, 130),
-		DataSlider(160, 50, 40, 0, "Mult", 1, 150), // mult
-		DataSlider(236, 70, 100, -100, "Fine", 0, 74), // detune
-		DataSlider(0, 90, 99, 1, "Attack", 99, 150), // a
-		DataSlider(20, 130, 99, 0, "Decay", 38, 130), // d
-		DataSlider(0, 150, 99, 0, "Sustain", 0, 150), // s
-		DataSlider(0, 170, 99, -99, "Release", 38, 150), // r
-		DataSlider(321, 90, 127, -127, "Volume scale", 0, 150), // keyboard volume scaling
-		DataSlider(351, 180, 99, 0, "FM", 0, 59),
-		DataSlider(411, 180, 99, 0, "AM", 0, 60),
-		DataSlider(321, 5, 7, 0, "Wave", 0, 60),
+		DataSlider(180, 5, 99, 0, lang("global","Volume"), 99, 130),
+		DataSlider(160, 50, 40, 0, lang("operator","Mult"), 1, 150), // mult
+		DataSlider(236, 70, 100, -100, lang("operator","Fine"), 0, 74), // detune
+		DataSlider(0, 90, 99, 1, lang("operator","Attack"), 99, 150), // a
+		DataSlider(20, 130, 99, 0, lang("operator","Decay"), 38, 130), // d
+		DataSlider(0, 150, 99, 0, lang("operator","Sustain"), 0, 150), // s
+		DataSlider(0, 170, 99, -99, lang("operator","Release"), 38, 150), // r
+		DataSlider(321, 90, 127, -127, lang("operator","Volume scale"), 0, 150), // keyboard volume scaling
+		DataSlider(351, 180, 99, 0, lang("operator","FM"), 0, 59),
+		DataSlider(411, 180, 99, 0, lang("operator","AM"), 0, 60),
+		DataSlider(321, 5, 7, 0, lang("operator","Wave"), 0, 60),
 
-		DataSlider(321, 110, 48, -48, "Attack", 0, 75), // envelope rate scaling
-		DataSlider(397, 110, 48, -48, "Decay", 0, 74),
-		DataSlider(321, 130, 99, 0, "VelSense", 99, 150), // keyboard volume scaling
-		DataSlider(0, 110, 80, 0, "Hold", 0, 150), // hold
-		DataSlider(0, 50, 70, 0, "Delay", 0, 150), // delay
-		DataSlider(0, 70, 99, 0, "Initial level", 0, 150), // initial level
-		DataSlider(160, 70, 24, 0, "¼tone", 0, 75),
-		DataSlider(321, 70, 120, 0, "Center note", 40, 150, 2), // envelope rate scaling
-		DataSlider(397, -900, 40, -40, "Pitch", 0, 74), // envelope rate scaling
-		DataSlider(160, 120, 99, -99, "Initial freq", 0, 150), // envelope rate scaling
-		DataSlider(160, 140, 99, 0, "Decay time", 0, 150), // envelope rate scaling
-		DataSlider(160, 160, 99, -99, "Release freq", 0, 150), // envelope rate scaling
-		DataSlider(160, 180, 99, 0, "Release time", 0, 150), // envelope rate scaling
-		DataSlider(321 + 61, 5, 31, 0, "Offs.", 0, 60)
+		DataSlider(321, 110, 48, -48, lang("operator","Attack"), 0, 75), // envelope rate scaling
+		DataSlider(397, 110, 48, -48, lang("operator","Decay"), 0, 74),
+		DataSlider(321, 130, 99, 0, lang("operator","VelSense"), 99, 150), // keyboard volume scaling
+		DataSlider(0, 110, 80, 0, lang("operator","Hold"), 0, 150), // hold
+		DataSlider(0, 50, 70, 0, lang("operator","Delay"), 0, 150), // delay
+		DataSlider(0, 70, 99, 0, lang("operator","Initial level"), 0, 150), // initial level
+		DataSlider(160, 70, 24, 0, lang("operator","¼tone"), 0, 75),
+		DataSlider(321, 70, 120, 0, lang("operator","Center note"), 40, 150, 2), // envelope rate scaling
+		DataSlider(397, -900, 40, -40, lang("operator","Pitch"), 0, 74), // envelope rate scaling
+		DataSlider(160, 120, 99, -99, lang("operator","Initial freq"), 0, 150), // envelope rate scaling
+		DataSlider(160, 140, 99, 0, lang("operator","Decay time"), 0, 150), // envelope rate scaling
+		DataSlider(160, 160, 99, -99, lang("operator","Release freq"), 0, 150), // envelope rate scaling
+		DataSlider(160, 180, 99, 0, lang("operator","Release time"), 0, 150), // envelope rate scaling
+		DataSlider(321 + 61, 5, 31, 0, lang("operator","Offs."), 0, 60)
 	});
 
 	for (int i = 0; i < slider.size(); i++)
@@ -118,15 +118,15 @@ bool OpGUI::update()
 
 		if (fixedFreq.selected)
 		{
-			slider[1].name.setString("Frequency");
+			slider[1].name.setString(lang("operator","Frequency" ));
 			slider[1].setMinMax(1, 255);
-			fixedFreq.setText("Fixed");
+			fixedFreq.setText(lang("operator","Fixed"));
 		}
 		else
 		{
-			slider[1].name.setString("Ratio");
+			slider[1].name.setString(lang("operator","Ratio"));
 			slider[1].setMinMax(0, 40);
-			fixedFreq.setText("Ratio");
+			fixedFreq.setText(lang("operator","Ratio"));
 		}
 		selected=false;
 		modified= true;

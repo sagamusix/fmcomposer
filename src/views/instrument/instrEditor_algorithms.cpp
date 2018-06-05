@@ -209,7 +209,7 @@ void InstrEditor::updateAlgoToFM()
 void InstrEditor::updateAlgoFromFM()
 {
 	algo.setValue(35);
-	algo.setDisplayedValueOnly("Custom");
+	algo.setDisplayedValueOnly(lang("instrEditor","Custom"));
 	customPreset = fm->instrument[instrList->value];
 	// reset op connections
 	for (int i = 0; i < 6; i++)

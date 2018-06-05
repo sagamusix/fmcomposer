@@ -153,6 +153,7 @@
     <ClCompile Include="src\gui\vumeter\vumeter.cpp" />
     <ClCompile Include="src\input\input.cpp" />
     <ClCompile Include="src\input\noteInput.cpp" />
+    <ClCompile Include="src\lang.cpp" />
     <ClCompile Include="src\libs\portmidi\pmutil.c" />
     <ClCompile Include="src\libs\portmidi\pmwin.c" />
     <ClCompile Include="src\libs\portmidi\pmwinmm.c" />
@@ -221,6 +222,7 @@
     <ClInclude Include="src\gui\vumeter\vumeter.hpp" />
     <ClInclude Include="src\input\input.hpp" />
     <ClInclude Include="src\input\noteInput.hpp" />
+    <ClInclude Include="src\lang.h" />
     <ClInclude Include="src\libs\portmidi\pminternal.h" />
     <ClInclude Include="src\libs\portmidi\pmutil.h" />
     <ClInclude Include="src\libs\portmidi\pmwinmm.h" />

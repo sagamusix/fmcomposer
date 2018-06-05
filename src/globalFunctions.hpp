@@ -10,6 +10,7 @@
 #endif
 
 #include "fmengine/fmlib.h"
+#include "lang.h"
 #include <portaudio.h>
 
 #define WindowWidth 1366

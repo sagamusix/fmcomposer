@@ -393,11 +393,11 @@ void Popup::handleEvents()
 
 						if (i < 3 && sliders[i].value == -1)
 						{
-							sliders[i].setDisplayedValueOnly("Any");
+							sliders[i].setDisplayedValueOnly(lang("global",  "Any"));
 						}
 						else if (i >= 3 && i < 6 && sliders[i].value == -1)
 						{
-							sliders[i].setDisplayedValueOnly("None");
+							sliders[i].setDisplayedValueOnly(lang("global",  "Nonr"));
 						}
 
 						break;
@@ -603,7 +603,7 @@ void Popup::close(bool pressOK)
 
 void Popup::updateIntervalDescription()
 {
-	texts[0].setString("Interval : " + intervals[abs(sliders[1].value)]);
+	texts[0].setString(string(lang("global",  "Interval"))+" : " + intervals[abs(sliders[1].value)]);
 }
 
 void Popup::updateBitDepthDescription()

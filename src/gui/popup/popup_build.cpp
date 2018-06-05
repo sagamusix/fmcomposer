@@ -1,32 +1,33 @@
 ﻿#include "popup.hpp"
 #include "../contextmenu/contextmenu.hpp"
 #include "../../streamed/streamedExport.h"
+#include "../../lang.h"
 
 void setEffectList(List* list)
 {
-	list->add("A - Arpeggio");
-	list->add("B - Pattern jump");
-	list->add("C - Row jump");
-	list->add("D - Delay");
-	list->add("E - Portamento up");
-	list->add("F - Portamento down");
-	list->add("G - Glissando");
-	list->add("H - Vibrato");
-	list->add("I - Pitch bend");
-	list->add("J - Tremolo");
-	list->add("K - Instrument control");
-	list->add("L - Global temperament");
-	list->add("M - Channel volume");
-	list->add("N - Channel volume slide");
-	list->add("P - Panning slide");
-	list->add("Q - Retrigger note");
-	list->add("R - Channel reverb");
-	list->add("S - Global reverb params");
-	list->add("T - Tempo");
-	list->add("V - Global volume");
-	list->add("W - Global volume slide");
-	list->add("X - Channel panning");
-	list->add("Y - Sync marker");
+	list->add("A - "+string(lang("popup", "Arpeggio")));
+	list->add("B - "+string(lang("popup", "Pattern jump")));
+	list->add("C - "+string(lang("popup", "Row jump")));
+	list->add("D - "+string(lang("popup", "Delay")));
+	list->add("E - "+string(lang("popup", "Portamento up")));
+	list->add("F - "+string(lang("popup", "Portamento down")));
+	list->add("G - "+string(lang("popup", "Glissando")));
+	list->add("H - "+string(lang("popup", "Vibrato")));
+	list->add("I - "+string(lang("popup", "Pitch bend")));
+	list->add("J - "+string(lang("popup", "Tremolo")));
+	list->add("K - "+string(lang("popup", "Instrument control")));
+	list->add("L - "+string(lang("popup", "Channel volume")));
+	list->add("M - "+string(lang("popup", "Channel volume")));
+	list->add("N - "+string(lang("popup", "Channel volume slide")));
+	list->add("P - "+string(lang("popup", "Panning slide")));
+	list->add("Q - "+string(lang("popup", "Retrigger note")));
+	list->add("R - "+string(lang("popup", "Channel reverb")));
+	list->add("S - "+string(lang("popup", "Global reverb params")));
+	list->add("T - "+string(lang("popup", "Tempo")));
+	list->add("V - "+string(lang("popup", "Global volume")));
+	list->add("W - "+string(lang("popup", "Global volume slide")));
+	list->add("X - "+string(lang("popup", "Channel panning")));
+	list->add("Y - "+string(lang("popup", "Sync marker")));
 }
 
 void Popup::show(int _type, int param)
@@ -52,7 +53,7 @@ void Popup::show(int _type, int param)
 	{
 		case POPUP_SAVED:{
 							 setSize(250, 100);
-							 title.setString("Info");
+							 title.setString(lang("popup", "Info"));
 
 							 Sprite s;
 							 s.setTexture(*tileset);
@@ -62,23 +63,23 @@ void Popup::show(int _type, int param)
 
 
 							 delay = 1;
-							 texts.push_back(Text("Saved !", font, charSize));
+							 texts.push_back(Text(lang("popup", "Saved"), font, charSize));
 							 texts[0].setColor(colors[BLOCKTEXT]);
 							 texts[0].setPosition(110, 40);
 							 break;
 		}
 		case POPUP_WORKING:
 			setSize(500, 200);
-			title.setString("Info");
-			texts.push_back(Text("Rendering, please wait...", font, charSize));
+			title.setString(lang("popup", "Info"));
+			texts.push_back(Text(lang("popup", "Rendering"), font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 20);
 			sliders.push_back(DataSlider(80, 70, 99, 0, "%", 99));
-			buttons.push_back(Button(50, h - 50, "Abort", -1, 8));
+			buttons.push_back(Button(50, h - 50, lang("popup", "Abort"), -1, 8));
 			break;
 		case POPUP_ABOUT:{
 			setSize(740, 400);
-			title.setString("About");
+			title.setString(lang("popup", "About"));
 
 			Sprite s;
 			s.setTexture(*tileset);
@@ -86,14 +87,14 @@ void Popup::show(int _type, int param)
 			sprites.push_back(s);
 			sprites[0].setPosition(10, 10);
 
-			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
-			buttons.push_back(Button(20, h - 50, "Go to the website", -1, 8));
-			buttons.push_back(Button(180, h - 50, "Check for updates", -1, 8));
+			buttons.push_back(Button(w - 50, h - 50, lang("global",  "OK"), -1, 8));
+			buttons.push_back(Button(20, h - 50,lang("popup",  "Go to the website"), -1, 8));
+			buttons.push_back(Button(180, h - 50, lang("popup",  "Check for updates"), -1, 8));
 			texts.push_back(Text(L"FM Composer, © 2017-2018 Stéphane Damo\n\n--------- Credits ---------\n\nTesting, help and advices :\n		Klairzaki Fil-Xter, Masami Komuro, Isaac Zuniga\n\nLibraries authors :\n		Laurent Gomila & SFML contributors (SFML lib)\n		Guillaume Vareille (tinyfiledialogs lib)\n		Brodie Thiesfield (SimpleIni lib)\n		Ross Bencina/Phil Burk/Roger B. Dannenberg (PortMidi/Audio lib)\n		Yann Collet (LZ4)\n		The LAME MP3 encoder team\n		The Google team (Material Icons)\n		Josh Coalson & Xiph.org foundation (FLAC encoder)", font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(286, 20);
 
-			texts.push_back(Text(string("Version ") + VERSION + " (" + VERSION_DATE + ")", font, charSize));
+			texts.push_back(Text(string(lang("popup", "Version"))+" " + VERSION + " (" + VERSION_DATE + ")", font, charSize));
 			texts[1].setColor(colors[BLOCKTEXT]);
 			texts[1].setPosition(100, 276);
 
@@ -102,59 +103,59 @@ void Popup::show(int _type, int param)
 
 		case POPUP_REPLACE_INSTRUMENT:
 			setSize(300, 400);
-			title.setString("Change instrument");
+			title.setString(lang("popup",  "Change instrument"));
 			lists.push_back(List(10, 10, 17, 230));
 
 			lists[0].text = instrList->text;
 			lists[0].updateSize();
 
-			buttons.push_back(Button(w - 90, h - 50, "OK", -1, 8));
-			buttons.push_back(Button(50, h - 50, "Cancel", -1, 8));
+			buttons.push_back(Button(w - 90, h - 50, lang("global",  "OK"), -1, 8));
+			buttons.push_back(Button(50, h - 50, lang("global",  "Cancel"), -1, 8));
 			break;
 		case POPUP_TRANSPOSE:
 			setSize(500, 250);
-			title.setString("Change note");
+			title.setString(lang("popup",  "Change note"));
 
-			checkboxes.push_back(Checkbox(20, 20, "Set note"));
-			checkboxes.push_back(Checkbox(20, 80, "Transpose"));
+			checkboxes.push_back(Checkbox(20, 20, lang("popup", "Set note")));
+			checkboxes.push_back(Checkbox(20, 80, lang("global", "Transpose")));
 
 			checkboxes[0].checked = 1;
 
 			sliders.push_back(DataSlider(160, 20, 128, 0, "", 0, 200, 2));
-			sliders.push_back(DataSlider(160, 80, 24, -24, "Semitones", 0));
+			sliders.push_back(DataSlider(160, 80, 24, -24, lang("popup", "Semitones"), 0));
 
 
 			texts.push_back(Text("", font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(160, 110);
 
-			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
-			buttons.push_back(Button(50, h - 50, "Cancel", -1, 8));
+			buttons.push_back(Button(w - 50, h - 50, lang("global",  "OK"), -1, 8));
+			buttons.push_back(Button(50, h - 50, lang("global",  "Cancel"), -1, 8));
 
 			updateIntervalDescription();
 
 			break;
 		case POPUP_SETNOTE:
 			setSize(300, 150);
-			title.setString("Set note");
+			title.setString(lang("popup","Set note"));
 			sliders.push_back(DataSlider(20, 20, 128, 0, "", 0, 200, 2));
 			sliders[0].setValue(60);
 
-			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
-			buttons.push_back(Button(50, h - 50, "Cancel", -1, 8));
+			buttons.push_back(Button(w - 50, h - 50, lang("global",  "OK"), -1, 8));
+			buttons.push_back(Button(50, h - 50, lang("global",  "Cancel"), -1, 8));
 
 			break;
 		case POPUP_FADE:
 			setSize(500, 350);
-			title.setString("Volume");
+			title.setString(lang("global",  "Volume"));
 
-			checkboxes.push_back(Checkbox(20, 80, "Scale volume"));
+			checkboxes.push_back(Checkbox(20, 80, lang("popup", "Scale volume")));
 
 
 
-			checkboxes.push_back(Checkbox(20, 140, "Fade in/out"));
+			checkboxes.push_back(Checkbox(20, 140, lang("popup", "Fade in/out")));
 
-			texts.push_back(Text("From\n\nTo", font, charSize));
+			texts.push_back(Text(lang("popup", "From\n\nTo"), font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(160, 140);
 
@@ -163,14 +164,14 @@ void Popup::show(int _type, int param)
 
 			sliders.push_back(DataSlider(160, 80, 200, 0, "%", 100));
 
-			checkboxes.push_back(Checkbox(20, 20, "Set volume"));
+			checkboxes.push_back(Checkbox(20, 20,lang("popup", "Set volume")));
 
 			sliders.push_back(DataSlider(160, 20, 99, 0, "", 99));
 
 			checkboxes[2].checked = 1;
 
-			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
-			buttons.push_back(Button(50, h - 50, "Cancel", -1, 8));
+			buttons.push_back(Button(w - 50, h - 50, lang("global",  "OK"), -1, 8));
+			buttons.push_back(Button(50, h - 50, lang("global",  "Cancel"), -1, 8));
 			break;
 		case POPUP_EFFECTS:{
 
@@ -181,19 +182,19 @@ void Popup::show(int _type, int param)
 							   sprites[0].setPosition(249, 150);
 
 							   setSize(600, 450);
-							   title.setString("Add effect");
+							   title.setString(lang("popup","Add effect"));
 
-							   texts.push_back(Text("Effect type", font, charSize));
+							   texts.push_back(Text(lang("popup","Effect type"), font, charSize));
 							   texts[0].setColor(colors[BLOCKTEXT]);
 							   texts[0].setPosition(10, 10);
 
 							   lists.push_back(List(20, 20, 18, 200));
 							   setEffectList(&lists[0]);
 
-							   buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
-							   buttons.push_back(Button(20, h - 50, "Cancel", -1, 8));
+							   buttons.push_back(Button(w - 50, h - 50, lang("global",  "OK"), -1, 8));
+							   buttons.push_back(Button(20, h - 50, lang("global",  "Cancel"), -1, 8));
 
-							   sliders.push_back(DataSlider(250, 168, 255, 0, "Value", 0, 255));
+							   sliders.push_back(DataSlider(250, 168, 255, 0, lang("popup","Value"), 0, 255));
 							   sliders.push_back(DataSlider(250, 188, 255, 0, "", 0, 255));
 							   sliders[1].setVisible(false);
 
@@ -208,21 +209,21 @@ void Popup::show(int _type, int param)
 
 		case POPUP_SEARCH:
 			setSize(800, 530);
-			title.setString("Search/Replace");
+			title.setString(lang("popup", "Search/Replace"));
 
-			texts.push_back(Text("Search for :", font, charSize));
+			texts.push_back(Text( lang("popup", "Search for"), font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(20, 20);
 
-			checkboxes.push_back(Checkbox(20, 100, "Note"));
+			checkboxes.push_back(Checkbox(20, 100, lang("global", "Note")));
 			sliders.push_back(DataSlider(150, 100, 128, -1, "", 64, 200, 2));
 
-			checkboxes.push_back(Checkbox(20, 140, "Volume"));
+			checkboxes.push_back(Checkbox(20, 140, lang("global", "Volume")));
 			sliders.push_back(DataSlider(150, 140, 99, -1, "", 0, 200));
 
-			checkboxes.push_back(Checkbox(20, 180, "Instrument"));
+			checkboxes.push_back(Checkbox(20, 180, lang("global", "Instrument")));
 			lists.push_back(List(150, 180, 6, 200));
-			lists[0].add("Any");
+			lists[0].add( lang("global", "Any"));
 			for (int i = 0; i < instrList->text.size(); i++)
 			{
 				lists[0].add(instrList->text[i].getString().toAnsiString());
@@ -230,56 +231,56 @@ void Popup::show(int _type, int param)
 
 			lists[0].updateSize();
 
-			checkboxes.push_back(Checkbox(20, 300, "Effect"));
+			checkboxes.push_back(Checkbox(20, 300, lang("popup", "Effect")));
 			lists.push_back(List(150, 300, 5, 200));
 			lists[1].add("Any");
 			setEffectList(&lists[1]);
 
-			checkboxes.push_back(Checkbox(20, 410, "Effect value"));
+			checkboxes.push_back(Checkbox(20, 410, lang("popup", "Effect value")));
 
-			checkboxes.push_back(Checkbox(220, h - 50, "The whole song"));
+			checkboxes.push_back(Checkbox(220, h - 50, lang("popup", "The whole song")));
 			checkboxes[5].checked = 1;
-			checkboxes.push_back(Checkbox(400, h - 50, "This pattern"));
-			checkboxes.push_back(Checkbox(550, h - 50, "Selection"));
+			checkboxes.push_back(Checkbox(400, h - 50, lang("popup", "This pattern")));
+			checkboxes.push_back(Checkbox(550, h - 50, lang("popup", "Selection")));
 
 
 			sliders.push_back(DataSlider(150, 410, 255, -1, "", 0, 200));
 
-			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
-			buttons.push_back(Button(30, h - 50, "Cancel", -1, 8));
+			buttons.push_back(Button(w - 50, h - 50, lang("global",  "OK"), -1, 8));
+			buttons.push_back(Button(30, h - 50, lang("global",  "Cancel"), -1, 8));
 
 			shapes.push_back(RectangleShape(Vector2f(1, 410)));
 			shapes[0].setPosition(394, 56);
 			shapes[0].setFillColor(colors[BLOCKBG]);
 
 			// replace
-			checkboxes.push_back(Checkbox(382, 20, "Replace with"));
+			checkboxes.push_back(Checkbox(382, 20, lang("global",  "Replace with")));
 
-			checkboxes.push_back(Checkbox(420, 100, "Note"));
+			checkboxes.push_back(Checkbox(420, 100,lang("global",  "Note")));
 			sliders.push_back(DataSlider(550, 100, 128, -1, "", 64, 200, 2));
 
-			checkboxes.push_back(Checkbox(420, 140, "Volume"));
+			checkboxes.push_back(Checkbox(420, 140, lang("global",  "Volume")));
 			sliders.push_back(DataSlider(550, 140, 99, -1, "", 0, 200));
 
-			checkboxes.push_back(Checkbox(420, 180, "Instrument"));
+			checkboxes.push_back(Checkbox(420, 180, lang("global",  "Instrument")));
 			lists.push_back(List(550, 180, 6, 200));
-			lists[2].add("None");
+			lists[2].add(lang("global",  "None"));
 			for (int i = 0; i < instrList->text.size(); i++)
 			{
 				lists[2].add(instrList->text[i].getString().toAnsiString());
 			}
 			lists[2].updateSize();
 
-			checkboxes.push_back(Checkbox(420, 300, "Effect"));
+			checkboxes.push_back(Checkbox(420, 300, lang("popup", "Effect")));
 			lists.push_back(List(550, 300, 5, 200));
-			lists[3].add("None");
+			lists[3].add(lang("global",  "None"));
 			setEffectList(&lists[3]);
 
 
-			checkboxes.push_back(Checkbox(420, 410, "Effect value"));
+			checkboxes.push_back(Checkbox(420, 410, lang("popup",  "Effect value")));
 			sliders.push_back(DataSlider(550, 410, 255, -1, "", 0, 200));
 
-			texts.push_back(Text("Search in :", font, charSize));
+			texts.push_back(Text(lang("global",  "Search in :"), font, charSize));
 			texts[1].setColor(colors[BLOCKTEXT]);
 			texts[1].setPosition(120, h - 50);
 
@@ -287,22 +288,22 @@ void Popup::show(int _type, int param)
 			{
 				if (i < 3 && sliders[i].value == -1)
 				{
-					sliders[i].setDisplayedValueOnly("Any");
+					sliders[i].setDisplayedValueOnly(lang("global",  "Any"));
 				}
 				else if (i >= 3 && sliders[i].value == -1)
 				{
-					sliders[i].setDisplayedValueOnly("None");
+					sliders[i].setDisplayedValueOnly(lang("global",  "None"));
 				}
 			}
 
-			checkboxes.push_back(Checkbox(420, 60, "Transposed note"));
-			sliders.push_back(DataSlider(600, 60, 24, -24, "Semitones", 64, 150));
+			checkboxes.push_back(Checkbox(420, 60, lang("popup",  "Transposed note")));
+			sliders.push_back(DataSlider(600, 60, 24, -24, lang("popup",  "Semitones"), 64, 150));
 
 			break;
 
 		case POPUP_REPLACERESULT:
 			setSize(300, 130);
-			title.setString("Search/Replace");
+			title.setString(lang("popup",  "Search/Replace"));
 			texts.push_back(Text(std::to_string(param) + " occurence(s) replaced", font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(20, 20);
@@ -311,63 +312,63 @@ void Popup::show(int _type, int param)
 
 		case POPUP_SAVEFAILED:
 			setSize(460, 150);
-			title.setString("Save action failed");
+			title.setString(lang("popup",  "Save action failed"));
 			texts.push_back(Text("Can't write data. Check if this file is writable.", font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 10);
-			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
+			buttons.push_back(Button(w - 50, h - 50,  lang("global",  "OK"), -1, 8));
 			break;
 		case POPUP_OPENFAILED:
 			setSize(460, 150);
-			title.setString("Open action failed");
-			texts.push_back(Text("Can't open file. Check if the file exists.", font, charSize));
+			title.setString(lang("popup",  "Open action failed"));
+			texts.push_back(Text(lang("popup",  "Missing file"), font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 10);
-			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
+			buttons.push_back(Button(w - 50, h - 50,  lang("global",  "OK"), -1, 8));
 			break;
 
 		case POPUP_QUITCONFIRM:
 			setSize(450, 150);
-			title.setString("Confirmation");
-			texts.push_back(Text("You have unsaved changes", font, charSize));
+			title.setString(lang("popup",  "Confirmation"));
+			texts.push_back(Text(lang("popup",  "Unsaved"), font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 10);
-			buttons.push_back(Button(w - 160, h - 50, "Quit without saving", -1, 8));
-			buttons.push_back(Button(30, h - 50, "Cancel", -1, 8));
-			buttons.push_back(Button(130, h - 50, "Save and quit", -1, 8));
+			buttons.push_back(Button(w - 160, h - 50, lang("popup",  "Quit without saving"), -1, 8));
+			buttons.push_back(Button(30, h - 50, lang("global",  "Cancel"), -1, 8));
+			buttons.push_back(Button(130, h - 50, lang("popup",  "Save and quit"), -1, 8));
 
 			break;
 
 		case POPUP_OPENCONFIRM:
 			setSize(450, 150);
-			title.setString("Confirmation");
-			texts.push_back(Text("You have unsaved changes", font, charSize));
+			title.setString(lang("popup",  "Confirmation"));
+			texts.push_back(Text(lang("popup",  "Unsaved"), font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 10);
-			buttons.push_back(Button(w - 160, h - 50, "Discard changes", -1, 8));
-			buttons.push_back(Button(30, h - 50, "Cancel", -1, 8));
-			buttons.push_back(Button(130, h - 50, "Save", -1, 8));
+			buttons.push_back(Button(w - 160, h - 50, lang("popup",  "Discard changes"), -1, 8));
+			buttons.push_back(Button(30, h - 50, lang("global",  "Cancel"), -1, 8));
+			buttons.push_back(Button(130, h - 50, lang("global",  "Save"), -1, 8));
 			break;
 
 		case POPUP_DELETEINSTRUMENT:
 			setSize(500, 150);
-			title.setString("Confirmation");
-			texts.push_back(Text("Notes using this instrument will be removed from the song. Proceed ?", font, charSize));
+			title.setString(lang("popup",  "Confirmation"));
+			texts.push_back(Text(lang("popup",  "Instrument delete"), font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 10);
-			buttons.push_back(Button(w - 80, h - 50, "Yes", -1, 8));
-			buttons.push_back(Button(30, h - 50, "No", -1, 8));
+			buttons.push_back(Button(w - 80, h - 50, lang("global",  "Yes"), -1, 8));
+			buttons.push_back(Button(30, h - 50, lang("global",  "No"), -1, 8));
 			break;
 
 		case POPUP_NEWFILE:
 			setSize(450, 150);
-			title.setString("Confirmation");
-			texts.push_back(Text("You have unsaved changes", font, charSize));
+			title.setString(lang("popup",  "Confirmation"));
+			texts.push_back(Text(lang("popup",  "Unsaved"), font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 10);
-			buttons.push_back(Button(w - 160, h - 50, "Discard changes", -1, 8));
-			buttons.push_back(Button(30, h - 50, "Cancel", -1, 8));
-			buttons.push_back(Button(130, h - 50, "Save", -1, 8));
+			buttons.push_back(Button(w - 160, h - 50, lang("popup",  "Discard changes"), -1, 8));
+			buttons.push_back(Button(30, h - 50, lang("global",  "Cancel"), -1, 8));
+			buttons.push_back(Button(130, h - 50, lang("global",  "Save"), -1, 8));
 			break;
 
 		case POPUP_MIDIEXPORT:{
@@ -382,21 +383,21 @@ void Popup::show(int _type, int param)
 					midiExportAssocChannels[i]++;
 			}
 			setSize(850, 510);
-			title.setString("MIDI export");
+			title.setString(lang("popup", "MIDI export"));
 
-			texts.push_back(Text("Associate the song's instruments to MIDI channels and MIDI instruments.", font, charSize));
+			texts.push_back(Text(lang("popup", "MIDI stuff"), font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 10);
 
-			texts.push_back(Text("Song instrument", font, charSize));
+			texts.push_back(Text(lang("popup", "Song instrument"), font, charSize));
 			texts[1].setColor(colors[TITLE]);
 			texts[1].setPosition(10, 45);
 
-			texts.push_back(Text("MIDI channel", font, charSize));
+			texts.push_back(Text(lang("popup", "MIDI channel"), font, charSize));
 			texts[2].setColor(colors[TITLE]);
 			texts[2].setPosition(300, 45);
 
-			texts.push_back(Text("MIDI instrument", font, charSize));
+			texts.push_back(Text(lang("popup", "MIDI instrument"), font, charSize));
 			texts[3].setColor(colors[TITLE]);
 			texts[3].setPosition(600, 45);
 
@@ -428,28 +429,28 @@ void Popup::show(int _type, int param)
 			lists[2].add("Ch16 Melodic");
 
 
-			buttons.push_back(Button(w - 90, h - 50, "Export", -1, 8));
-			buttons.push_back(Button(50, h - 50, "Cancel", -1, 8));
+			buttons.push_back(Button(w - 90, h - 50, lang("popup",  "Export"), -1, 8));
+			buttons.push_back(Button(50, h - 50, lang("global",  "Cancel"), -1, 8));
 
 			break;
 		}
 		case POPUP_STREAMEDEXPORT:
 			setSize(620, 380);
-			title.setString("Streamed audio export");
+			title.setString(lang("popup", "Streamed audio export"));
 
-			texts.push_back(Text("From", font, charSize));
+			texts.push_back(Text(lang("popup", "From"), font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(20, 20);
 
-			texts.push_back(Text("To", font, charSize));
+			texts.push_back(Text(lang("popup", "To"), font, charSize));
 			texts[1].setColor(colors[BLOCKTEXT]);
 			texts[1].setPosition(240, 20);
 
-			checkboxes.push_back(Checkbox(20, 100, "Export as Wave"));
-			checkboxes.push_back(Checkbox(20, 242, "Export as MP3"));
+			checkboxes.push_back(Checkbox(20, 100, lang("popup", "Wave")));
+			checkboxes.push_back(Checkbox(20, 242, lang("popup", "MP3")));
 
-			checkboxes.push_back(Checkbox(170, 242, "VBR"));
-			checkboxes.push_back(Checkbox(170, 282, "CBR"));
+			checkboxes.push_back(Checkbox(170, 242, lang("popup", "VBR")));
+			checkboxes.push_back(Checkbox(170, 282, lang("popup", "CBR")));
 
 			checkboxes[0].checked = 1;
 
@@ -459,31 +460,31 @@ void Popup::show(int _type, int param)
 			shapes[0].setPosition(20, 80);
 			shapes[0].setFillColor(colors[BLOCKBG]);
 
-			sliders.push_back(DataSlider(60, 20, fm->patternCount, 0, "Pattern", 0, 150));
-			sliders.push_back(DataSlider(270, 20, fm->patternCount, 0, "Pattern", fm->patternCount, 150));
+			sliders.push_back(DataSlider(60, 20, fm->patternCount, 0, lang("popup", "Pattern"), 0, 150));
+			sliders.push_back(DataSlider(270, 20, fm->patternCount, 0, lang("popup", "Pattern"), fm->patternCount, 150));
 
 
-			sliders.push_back(DataSlider(60, 50, 10, 0, "Loop", 0, 80));
-			texts.push_back(Text("Times", font, charSize));
+			sliders.push_back(DataSlider(60, 50, 10, 0, lang("popup", "Loop"), 0, 80));
+			texts.push_back(Text(lang("popup", "Times"), font, charSize));
 			texts[2].setColor(colors[BLOCKTEXT]);
 			texts[2].setPosition(150, 50);
 
-			checkboxes.push_back(Checkbox(20, 168, "Export as FLAC"));
-			sliders.push_back(DataSlider(310, 170, 8, 0, "Compression level", 0, 200));
+			checkboxes.push_back(Checkbox(20, 168, lang("popup", "FLAC")));
+			sliders.push_back(DataSlider(310, 170, 8, 0, lang("popup", "Compression level"), 0, 200));
 
-			sliders.push_back(DataSlider(170, 102, 4, 0, "Bit depth", 1,130));
-			sliders.push_back(DataSlider(170, 170, 4, 0, "Bit depth", 1,130));
+			sliders.push_back(DataSlider(170, 102, 4, 0, lang("popup", "Bit depth"), 1,130));
+			sliders.push_back(DataSlider(170, 170, 4, 0, lang("popup","Bit depth"), 1,130));
 
-			buttons.push_back(Button(w - 90, h - 50, "Export", -1, 8));
-			buttons.push_back(Button(50, h - 50, "Cancel", -1, 8));
+			buttons.push_back(Button(w - 90, h - 50, lang("popup",  "Export"), -1, 8));
+			buttons.push_back(Button(50, h - 50, lang("global",  "Cancel"), -1, 8));
 
-			checkboxes.push_back(Checkbox(445, 20, "Multi-track export"));
+			checkboxes.push_back(Checkbox(445, 20, lang("popup", "Multi-track export")));
 
 			break;
 		case POPUP_TEMPERAMENT:
 			setSize(580, 400);
-			title.setString("Edit temperament");
-			texts.push_back(Text("Tuning in cents for each note", font, charSize));
+			title.setString(lang("global", "Edit temperament"));
+			texts.push_back(Text(lang("global","Tuning in cents for each note"), font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(20, 40);
 			sliders.push_back(DataSlider(20, 80, 100, -100, "C", 0));
@@ -501,49 +502,49 @@ void Popup::show(int _type, int param)
 
 			
 
-			buttons.push_back(Button(w - 65, h - 50, "Close", -1, 8));
+			buttons.push_back(Button(w - 65, h - 50, lang("global",  "Close"), -1, 8));
 
-			buttons.push_back(Button(250, 88, "Reset", -1, 8));
+			buttons.push_back(Button(250, 88, lang("global",  "Reset"), -1, 8));
 
-			texts.push_back(Text("Presets", font, charSize));
+			texts.push_back(Text(lang("popup", "Presets"), font, charSize));
 			texts[1].setColor(colors[BLOCKTEXT]);
 			texts[1].setPosition(320, 40);
 			sliders.push_back(DataSlider(320, 70, 2, 0, "", 0));
-			sliders.push_back(DataSlider(320, 100, 11, 0, "Base note", 0));
+			sliders.push_back(DataSlider(320, 100, 11, 0, lang("popup","Base note"), 0));
 
 			break;
 		case POPUP_INSERTROWS:
 			setSize(240, 300);
-			title.setString("Insert rows");
+			title.setString(lang("popup",  "Insert rows"));
 
-			sliders.push_back(DataSlider(20, 40, 128, 1, "Number of rows", config->rowHighlight.value));
+			sliders.push_back(DataSlider(20, 40, 128, 1, lang("popup",  "Number of rows"), config->rowHighlight.value));
 
-			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
-			buttons.push_back(Button(30, h - 50, "Cancel", -1, 8));
+			buttons.push_back(Button(w - 50, h - 50, lang("global",  "OK"), -1, 8));
+			buttons.push_back(Button(30, h - 50, lang("global",  "Cancel"), -1, 8));
 			break;
 
 		case POPUP_REMOVEROWS:
 			setSize(240, 300);
-			title.setString("Remove rows");
+			title.setString(lang("popup",  "Remove rows"));
 
-			sliders.push_back(DataSlider(20, 40, 128, 1, "Number of rows", config->rowHighlight.value));
+			sliders.push_back(DataSlider(20, 40, 128, 1, lang("popup",  "Number of rows"), config->rowHighlight.value));
 
-			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
-			buttons.push_back(Button(30, h - 50, "Cancel", -1, 8));
+			buttons.push_back(Button(w - 50, h - 50, lang("global",  "OK"), -1, 8));
+			buttons.push_back(Button(30, h - 50, lang("global",  "Cancel"), -1, 8));
 			break;
 
 		case POPUP_FILECORRUPTED:
 			setSize(460, 150);
 			title.setString(":(");
-			texts.push_back(Text("The file you opened seems corrupted.\n\nBe careful when editing, it may crash the program.\n\nUse a clean backup if you have one.", font, charSize));
+			texts.push_back(Text(lang("popup",  "Corrupted message"), font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 10);
-			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
+			buttons.push_back(Button(w - 50, h - 50, lang("global",  "OK"), -1, 8));
 			break;
 		case POPUP_FIRSTSTART:
 		{
 			setSize(800, 300);
-			title.setString("First start");
+			title.setString(lang("popup",  "First start"));
 
 			Sprite s;
 			s.setTexture(*tileset);
@@ -551,9 +552,9 @@ void Popup::show(int _type, int param)
 			sprites.push_back(s);
 			sprites[0].setPosition(10, 10);
 
-			buttons.push_back(Button(w - 80, h - 50, "Close", -1, 8));
-			buttons.push_back(Button(490, 101, "Online tutorial", -1, 8));
-			texts.push_back(Text("Welcome to FM Composer !\n\nIt seems to be the first time you launch this program.\n\n\nClick here to learn the basics :\n\n\nA demo song was just loaded so you can see how a song is made and how\nsome FM Composer features are used.\nThere are other demos in the song folder.\n\n\nHave fun !", font, charSize));
+			buttons.push_back(Button(w - 80, h - 50, lang("global",  "Close"), -1, 8));
+			buttons.push_back(Button(490, 101, lang("popup", "Online tutorial"), -1, 8));
+			texts.push_back(Text(lang("popup",  "Welcome message"), font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(276, 20);
 
@@ -562,26 +563,26 @@ void Popup::show(int _type, int param)
 			break;
 		case POPUP_WRONGVERSION:
 			setSize(600, 200);
-			title.setString("Newer file version");
+			title.setString(lang("popup",  "Newer file version"));
 
-			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
-			buttons.push_back(Button(28, 150, "Go to the download page", -1, 8));
-			texts.push_back(Text("This file has been created with a newer version of FM Composer.\n\nPlease download the latest version and try again.", font, charSize));
+			buttons.push_back(Button(w - 50, h - 50, lang("global",  "OK"), -1, 8));
+			buttons.push_back(Button(28, 150, lang("popup",  "Go to the download page"), -1, 8));
+			texts.push_back(Text(lang("popup",  "Wrong version"), font, charSize));
 			texts[0].setColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(20, 20);
 			break;
 		case POPUP_MULTITRACKEXPORT:
 			setSize(600, 450);
-			title.setString("Multi-track streamed audio export");
-			texts.push_back(Text("Tracks to export", font, charSize));
+			title.setString(lang("popup",  "Multi-track window"));
+			texts.push_back(Text(lang("popup", "Tracks to export"), font, charSize));
 			texts[0].setColor(colors[TITLE]);
 			texts[0].setPosition(10, 25);
 
-			texts.push_back(Text("Channels to mix into", font, charSize));
+			texts.push_back(Text(lang("popup", "Channels to mix into"), font, charSize));
 			texts[1].setColor(colors[TITLE]);
 			texts[1].setPosition(300, 25);
 
-			texts.push_back(Text("(hold CTRL/SHIFT to select multiple)", font, charSize));
+			texts.push_back(Text(lang("popup", "hold CTRL/SHIFT to select multiple"), font, charSize));
 			texts[2].setColor(colors[BLOCKTEXT]);
 			texts[2].setPosition(300, 45);
 
@@ -594,14 +595,14 @@ void Popup::show(int _type, int param)
 
 			for (unsigned i = 0; i < FM_ch; i++)
 			{
-				lists[1].add("Channel "+std::to_string(i+1));
+				lists[1].add(string(lang("global", "Channel"))+" "+std::to_string(i+1));
 			}
 
-			buttons.push_back(Button(20,290, "Add", -1, 8));
-			buttons.push_back(Button(70,290, "Remove", -1, 8));
+			buttons.push_back(Button(20,290, lang("global", "Add"), -1, 8));
+			buttons.push_back(Button(70,290, lang("global", "Remove"), -1, 8));
 
-			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
-			buttons.push_back(Button(30, h - 50, "Cancel", -1, 8));
+			buttons.push_back(Button(w - 50, h - 50, lang("global",  "OK"), -1, 8));
+			buttons.push_back(Button(30, h - 50, lang("global",  "Cancel"), -1, 8));
 
 
 			if (streamedExport.multitrackAssoc.size() < lists[0].text.size())
@@ -657,11 +658,11 @@ void Popup::show(int _type, int param)
 			{
 				if (i < 3 && sliders[i].value == -1)
 				{
-					sliders[i].setDisplayedValueOnly("Any");
+					sliders[i].setDisplayedValueOnly(lang("global", "Any"));
 				}
 				else if (i >= 3 && sliders[i].value == -1)
 				{
-					sliders[i].setDisplayedValueOnly("None");
+					sliders[i].setDisplayedValueOnly(lang("global", "None"));
 				}
 			}
 		}
@@ -693,13 +694,13 @@ void Popup::updateExportSliders()
 {
 	if (checkboxes[3].checked)
 	{
-		sliders[0].name.setString("Bitrate (Kbps)");
+		sliders[0].name.setString(string(lang("popup", "Bitrate"))+" (Kbps)");
 		sliders[0].setMinMax(0, 15);
 		sliders[0].setDisplayedValueOnly(std::to_string(mp3_bitrates[sliders[0].value]));
 	}
 	else
 	{
-		sliders[0].name.setString("Quality (0=best, 9=worst)");
+		sliders[0].name.setString(lang("popup", "MP3_Quality"));
 		sliders[0].setMinMax(0, 9);
 	}
 }

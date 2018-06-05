@@ -13,14 +13,14 @@ InstrEditor* instrEditor;
 
 
 InstrEditor::InstrEditor(int y)
-: algo(806, y + 380, 35, 0, "Algorithm", 35), feedback(321, y - 21, 99, 0, "Feedback", 0, 85), feedbackSource(406, y - 21, 6, 1, "src", 1, 36)
-, save(814, y + 15, "Save", -1, 6), load(894, y + 15, "Load", -1, 6), instrName(806, y + 50, 23, ""), lfoDelay(811, y + 450, 99, 0, "Delay", 0, 150)
-, lfoSpeed(811, y + 430, 99, 0, "Speed", 0, 150), lfoA(811, y + 470, 99, 0, "Attack", 25, 150), add(1077, 320, "Add", -1, 6), adsr(Vector2f(200, 100)), lfoOffsetBar(Vector2f(1, 26))
-, lfoWaveform(811, y + 490, 19, 0, "Waveform", 0, 150), lfoOffset(811, y + 510, 31, 0, "Offset", 0, 150), waveform(*tileset), connector(*tileset), lfo("LFO", font, charSize),
-volume(806, y + 80, 99, 0, "Volume", 80), tuning(806, y + 120, 100, -100, "Tuning", 0,100), lfoBG(Vector2f(198, 130)), envReset(806, y + 567, "Reset env."), phaseReset(806, y + 587, "Reset phase"),
-transpose(806, y + 100, 12, -12, "Base note", 0,100), newNote("On new note :", font, charSize), lfoReset(893, y + 587, "Reset LFO"), instrCleanup(1070, 730, "Remove unused", -1, 6),
-temperament(806 + 6, y + 657 + 6, "Temperament", -1, 6), k_fx1(806, y + 627, 7, 0, "", 0, 69, 0), k_fx2(806 + 70, y + 627, 16, 0, "", 0, 130, 0), kfx_text("K pattern effect control :", font, charSize)
-, zoom(1), smoothTransition(879, y + 567, "Smooth transition"), copied(false), valueChanged(0), opCopied(-1), opSelected(0), transposable(910 + 6, y + 100+8,"Trans-\nposable")
+: algo(806, y + 380, 35, 0,lang("instrEditor","Algorithm"), 35), feedback(321, y - 21, 99, 0, lang("instrEditor","Feedback"), 0, 85), feedbackSource(406, y - 21, 6, 1, lang("instrEditor","src"), 1, 36)
+, save(814, y + 15, lang("instrEditor","Save"), -1, 6), load(894, y + 15, lang("instrEditor","Load"), -1, 6), instrName(806, y + 50, 23, ""), lfoDelay(811, y + 450, 99, 0, lang("instrEditor","Delay"), 0, 150)
+, lfoSpeed(811, y + 430, 99, 0, lang("instrEditor","Speed"), 0, 150), lfoA(811, y + 470, 99, 0, lang("instrEditor","Attack"), 25, 150), add(1077, 320, lang("instrEditor","Add"), -1, 6), adsr(Vector2f(200, 100)), lfoOffsetBar(Vector2f(1, 26))
+, lfoWaveform(811, y + 490, 19, 0, lang("instrEditor","Waveform"), 0, 150), lfoOffset(811, y + 510, 31, 0, lang("instrEditor","Offset"), 0, 150), waveform(*tileset), connector(*tileset), lfo(lang("instrEditor","LFO"), font, charSize),
+volume(806, y + 80, 99, 0,lang("instrEditor", "Volume"), 80), tuning(806, y + 120, 100, -100, lang("instrEditor", "Tuning"), 0,100), lfoBG(Vector2f(198, 130)), envReset(806, y + 567, lang("instrEditor","Reset env.")), phaseReset(806, y + 587, lang("instrEditor","Reset phase")),
+transpose(806, y + 100, 12, -12, lang("instrEditor", "Base note"), 0,100), newNote(lang("instrEditor", "On new note"), font, charSize), lfoReset(893, y + 587, lang("instrEditor", "Reset LFO")), instrCleanup(1070, 730, lang("instrEditor","Remove unused"), -1, 6),
+temperament(806 + 6, y + 657 + 6, lang("instrEditor", "Temperament"), -1, 6), k_fx1(806, y + 627, 7, 0, "", 0, 69, 0), k_fx2(806 + 70, y + 627, 16, 0, "", 0, 130, 0), kfx_text(lang("instrEditor","'K' pattern effect control"), font, charSize)
+, zoom(1), smoothTransition(879, y + 567, lang("instrEditor", "Smooth transistion")), copied(false), valueChanged(0), opCopied(-1), opSelected(0), transposable(910 + 6, y + 100+8,"Trans-\nposable")
 {
 
 
@@ -48,12 +48,12 @@ temperament(806 + 6, y + 657 + 6, "Temperament", -1, 6), k_fx1(806, y + 627, 7, 
 	}
 	customPreset = fm->instrument[instrList->value];
 
-	op.push_back(OpGUI(10, y + 10, "Operator 1"));
-	op.push_back(OpGUI(10, y + 250, "Operator 2"));
-	op.push_back(OpGUI(10, y + 490, "Operator 3"));
-	op.push_back(OpGUI(500, y + 10, "Operator 4"));
-	op.push_back(OpGUI(500, y + 250, "Operator 5"));
-	op.push_back(OpGUI(500, y + 490, "Operator 6"));
+	op.push_back(OpGUI(10, y + 10, string(lang("instrEditor", "Operator"))+" 1"));
+	op.push_back(OpGUI(10, y + 250, string(lang("instrEditor", "Operator"))+" 2"));
+	op.push_back(OpGUI(10, y + 490, string(lang("instrEditor", "Operator"))+" 3"));
+	op.push_back(OpGUI(500, y + 10, string(lang("instrEditor", "Operator"))+" 4"));
+	op.push_back(OpGUI(500, y + 250, string(lang("instrEditor", "Operator"))+" 5"));
+	op.push_back(OpGUI(500, y + 490, string(lang("instrEditor", "Operator"))+" 6"));
 	op[0].slider[0].setValue(50);
 	op[1].slider[0].setValue(85);
 	op[2].slider[0].setValue(50);
@@ -62,17 +62,17 @@ temperament(806 + 6, y + 657 + 6, "Temperament", -1, 6), k_fx1(806, y + 627, 7, 
 	waveform.setPosition(965, y + 455);
 	connector.setTextureRect(IntRect(300, 330, 220, 28));
 
-	operatorMenu.add("Copy operator");
-	operatorMenu.add("Paste operator");
-	operatorMenu.add("Copy envelope");
-	operatorMenu.add("Paste envelope");
+	operatorMenu.add(lang("instrEditor", "Copy operator"));
+	operatorMenu.add(lang("instrEditor", "Paste operator"));
+	operatorMenu.add(lang("instrEditor", "Copy envelope"));
+	operatorMenu.add(lang("instrEditor", "Paste envelope"));
 
-	instrumentMenu.add("Copy");
-	instrumentMenu.add("Paste");
-	instrumentMenu.add("Remove");
+	instrumentMenu.add(lang("global", "Copy"));
+	instrumentMenu.add(lang("global", "Paste"));
+	instrumentMenu.add(lang("global", "Remove"));
 
-	editTools.add("Undo");
-	editTools.add("Redo");
+	editTools.add(lang("global", "Undo"));
+	editTools.add(lang("global", "Redo"));
 
 
 	connector.setPosition(798, 395);
@@ -327,7 +327,7 @@ void InstrEditor::update()
 	{
 		if (algo.value == 35)
 		{
-			algo.setDisplayedValueOnly("Custom");
+			algo.setDisplayedValueOnly(lang("instrEditor", "Custom"));
 			fm->instrument[instrList->value] = customPreset;
 			updateAlgoFromFM();
 		}
@@ -446,14 +446,14 @@ void InstrEditor::draw()
 	if (k_fx1.value == 0)
 	{
 		k_fx2.setMinMax(0, 7);
-		k_fx1.name.setString("Global");
+		k_fx1.name.setString(lang("instrEditor", "Global"));
 		k_fx2.name.setString(kfx_globalParams[k_fx2.value]);
 	}
 	else
 	{
 		k_fx2.setMinMax(0, 16);
 		k_fx2.name.setString(kfx_operatorParams[k_fx2.value]);
-		k_fx1.name.setString("Op " + std::to_string(k_fx1.value));
+		k_fx1.name.setString(string(lang("instrEditor", "OP")) +" "+ std::to_string(k_fx1.value));
 	}
 
 	drawBatcher.addItem(&k_fx1);
@@ -696,7 +696,7 @@ void InstrEditor::handleEvents()
 						}
 						algo.setValue(35);
 
-						algo.setDisplayedValueOnly("Custom");
+						algo.setDisplayedValueOnly(lang("instrEditor", "Custom"));
 
 						updateAlgoToFM();
 						customPreset = fm->instrument[instrList->value];

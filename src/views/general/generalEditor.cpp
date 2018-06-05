@@ -4,17 +4,17 @@
 GeneralEditor* generalEditor;
 
 GeneralEditor::GeneralEditor() :
-tempo(50, 50, 255, 0, "Tempo (BPM)", 120),
-songName(100, 160, 63, "Title :"),
-author(100, 190, 63, "Author :"),
-comments(100, 220, 255, "Comments :", true, 7, 483),
-globalVolume(300, 50, 99, 0, "Global Volume", 60),
+tempo(50, 50, 255, 0, lang("general","Tempo (BPM)"), 120),
+songName(100, 160, 63, lang("general","Title")),
+author(100, 190, 63, lang("general","Author")),
+comments(100, 220, 255, lang("general","Comments"), true, 7, 483),
+globalVolume(300, 50, 99, 0, lang("general","Global Volume"), 60),
 diviseur(140, 100, 32, 1, "", 8, 100),
-diviseurText("1 quarter note =", font, charSize),
-reverbLength(550, 50, 40, 0, "Room reverberation", 4),
-roomSize(550, 80, 40, 1, "Room size", 5),
-transpose(800, 50, 12, -12, "Transpose (semitones)", 0),
-rows("rows", font, charSize)
+diviseurText(string("1 ")+string(lang("general","quarter note"))+string(" ="), font, charSize),
+reverbLength(550, 50, 40, 0, lang("general","Room reverberation"), 4),
+roomSize(550, 80, 40, 1, lang("general","Room size"), 5),
+transpose(800, 50, 12, -12, lang("general","Transpose (semitones)"), 0),
+rows(lang("general","rows"), font, charSize)
 {
 	fm->tempo = tempo.value;
 	reverb.setPosition(650, 325);

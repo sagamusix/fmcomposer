@@ -10,15 +10,15 @@ void InstrEditor::updateFromFM()
 	{
 		if (fm->instrument[instrList->value].op[i].fixedFreq == true)
 		{
-			op[i].slider[1].name.setString("Frequency");
+			op[i].slider[1].name.setString(lang("operator","Frequency"));
 			op[i].slider[1].setMinMax(1, 255);
-			op[i].fixedFreq.setText("Fixed");
+			op[i].fixedFreq.setText(lang("operator","Fixed"));
 		}
 		else
 		{
-			op[i].slider[1].name.setString("Mult");
+			op[i].slider[1].name.setString(lang("operator","Mult"));
 			op[i].slider[1].setMinMax(0, 40);
-			op[i].fixedFreq.setText("Ratio");
+			op[i].fixedFreq.setText(lang("operator","Ratio"));
 		}
 
 		op[i].envLoop.selected = fm->instrument[instrList->value].op[i].envLoop == true;

@@ -1790,10 +1790,10 @@ int fm_loadSongFromMemory(fmsynth* f, char* data, unsigned len)
 	fm_resizePatterns(f, nbOrd);
 
 	for (unsigned i = 0; i < nbOrd; i++)
-	{
+	{ 
 		readFromMemory(f, &nbRow, sizeof(nbRow), data);
-
-		fm_resizePattern(f, i, clamp(nbRow, 1, 256), 0);
+		
+		fm_resizePattern(f, i, nbRow==0 ? 256 : nbRow, 0);
 
 
 		if (!read_compressed_mem(f, (char*)&f->pattern[i][0], data))
@@ -1802,6 +1802,7 @@ int fm_loadSongFromMemory(fmsynth* f, char* data, unsigned len)
 			continue;
 		}
 	}
+
 
 	readFromMemory(f, &f->instrumentCount, 1, data);
 	fm_resizeInstrumentList(f, f->instrumentCount);

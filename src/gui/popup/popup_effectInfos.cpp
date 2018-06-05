@@ -74,55 +74,55 @@ void Popup::updateEffectDescription()
 				   {
 					   int baseNote = fm->pattern[pos / 128][pos % 128][songEditor->selectedChannel].note;
 
-					   texts[0].setString(L"Play a fast triplet arpeggio :\n>" + noteName(baseNote) + L"\n> " + noteName(baseNote + sliders[0].value % 16) + " (" + intervals[sliders[0].value % 16] + L")\n> " + noteName(baseNote + sliders[0].value / 16) + " (" + intervals[sliders[0].value / 16] + ") ");
+					   texts[0].setString(string(lang("effects", "Play a fast triplet arpeggio"))+" :\n>" + noteName(baseNote) + L"\n> " + noteName(baseNote + sliders[0].value % 16) + " (" + intervals[sliders[0].value % 16] + L")\n> " + noteName(baseNote + sliders[0].value / 16) + " (" + intervals[sliders[0].value / 16] + ") ");
 				   }
 				   else
 				   {
-					   texts[0].setString(L"Play a fast triplet arpeggio :\n> Base note\n> note+" + int2str[sliders[0].value % 16] + " (" + intervals[sliders[0].value % 16] + ") " + L"\n> note+" + int2str[sliders[0].value / 16] + " (" + intervals[sliders[0].value / 16] + ") ");
+					   texts[0].setString(string(lang("effects", "Play a fast triplet arpeggio"))+" :\n> "+lang("effects", "Base note")+"\n> note+" + int2str[sliders[0].value % 16] + " (" + intervals[sliders[0].value % 16] + ") " + L"\n> note+" + int2str[sliders[0].value / 16] + " (" + intervals[sliders[0].value / 16] + ") ");
 				   }
-				   sliders[0].name.setString("Arpeggio notes");
+				   sliders[0].name.setString(lang("effects", "A_description"));
 				   texts[1].setString("");
 				   sprites[0].setColor(Color(0, 0, 0, 0));
 		}
 			break;
 		case 1: // B - Pattern jump
-			texts[0].setString("Jump to another pattern");
+			texts[0].setString(lang("effects", "B_description"));
 			texts[1].setString("");
 			sliders[0].setMinMax(0, 255);
-			sliders[0].name.setString("Pattern number");
+			sliders[0].name.setString(lang("effects", "Pattern number"));
 			sprites[0].setColor(Color(0, 0, 0, 0));
 			break;
 		case 2: // C - Row jump
-			texts[0].setString("Jump to another row");
+			texts[0].setString(lang("effects", "C_description"));
 			texts[1].setString("");
 			sliders[0].setMinMax(0, 255);
-			sliders[0].name.setString("Row number");
+			sliders[0].name.setString(lang("effects", "Row number"));
 			sprites[0].setColor(Color(0, 0, 0, 0));
 			break;
 		case 3: // D - Delay
-			texts[0].setString("Play the note with precise timing (1/8ths of a row)");
-			texts[1].setString("No delay								Max delay");
+			texts[0].setString(lang("effects", "D_description"));
+			texts[1].setString(lang("effects", "D_range"));
 			sliders[0].setMinMax(0, 7);
 			sliders[0].name.setString("");
 			sprites[0].setColor(Color(255, 255, 255, 255));
 			break;
 		case 4: // E - Portamento up
-			texts[0].setString("Pitch slide up");
-			texts[1].setString("Slow												Fast");
+			texts[0].setString(lang("effects", "E_description"));
+			texts[1].setString(lang("effects", "E_range"));
 			sliders[0].setMinMax(0, 255);
-			sliders[0].name.setString("Speed");
+			sliders[0].name.setString(lang("effects", "Speed"));
 			sprites[0].setColor(Color(255, 255, 255, 255));
 			break;
 		case 5: // F - Portamento down
-			texts[0].setString("Pitch slide down");
-			texts[1].setString("Slow												Fast");
+			texts[0].setString(lang("effects", "F_description"));
+			texts[1].setString(lang("effects", "F_range"));
 			sliders[0].setMinMax(0, 255);
-			sliders[0].name.setString("Speed");
+			sliders[0].name.setString(lang("effects", "Speed"));
 			sprites[0].setColor(Color(255, 255, 255, 255));
 			break;
 		case 6:{ // G - Glissando
 
-				   texts[0].setString("Pitch slide between two notes");
+				   texts[0].setString(lang("effects", "G_description"));
 
 				   int order, row;
 				   unsigned char note1 = findPrevious(0, fm->order, fm->row, songEditor->selectedChannel, &order, &row);
@@ -134,32 +134,32 @@ void Popup::updateEffectDescription()
 
 					   if (note2 < 128)
 					   {
-						   texts[0].setString("Pitch slide between " + noteName(note2) + " and " + noteName(note1));
+						   texts[0].setString(string(lang("effects", "Pitch slide between")) + noteName(note2) + " and " + noteName(note1));
 					   }
 
 				   }
 
 
-				   texts[1].setString("Slow												Fast");
+				   texts[1].setString(lang("effects", "G_range"));
 				   sliders[0].setMinMax(0, 255);
-				   sliders[0].name.setString("Speed");
+				   sliders[0].name.setString(lang("effects", "speed"));
 				   sprites[0].setColor(Color(255, 255, 255, 255));
 		}
 			break;
-		case 7: // Vibrato
+		case 7: // H Vibrato
 			sliders[1].setVisible(true);
 			sliders[0].setMinMax(0, 15);
 			sliders[1].setMinMax(0, 15);
-			texts[0].setString("Add vibrato");
+			texts[0].setString(lang("effects", "H_description"));
 			texts[1].setString("");
-			sliders[0].name.setString("Speed");
-			sliders[1].name.setString("Depth");
+			sliders[0].name.setString(lang("effects", "Speed"));
+			sliders[1].name.setString(lang("effects", "Depth"));
 			sprites[0].setColor(Color(255, 255, 255, 0));
 			break;
 
 		case 8: // I Pitch bend
 			sliders[0].setMinMax(0, 255);
-			texts[0].setString("Set the pitch bend wheel (-2/+2 semitones range)");
+			texts[0].setString(lang("effects", "I_description"));
 			texts[1].setString("-2							0						 +2");
 			sliders[0].name.setString("");
 			sprites[0].setColor(Color(255, 255, 255, 255));
@@ -168,10 +168,10 @@ void Popup::updateEffectDescription()
 			sliders[1].setVisible(true);
 			sliders[0].setMinMax(0, 15);
 			sliders[1].setMinMax(0, 15);
-			texts[0].setString("Add tremolo");
+			texts[0].setString(lang("effects", "J_description"));
 			texts[1].setString("");
-			sliders[0].name.setString("Speed");
-			sliders[1].name.setString("Depth");
+			sliders[0].name.setString(lang("effects", "Speed"));
+			sliders[1].name.setString(lang("effects", "Depth"));
 			sprites[0].setColor(Color(255, 255, 255, 0));
 			break;
 		case 10:{ // K FM parameter select
@@ -182,14 +182,14 @@ void Popup::updateEffectDescription()
 						instr = 0;
 
 					if (fm->instrument[instrList->value].kfx / 32 == 0)
-						texts[0].setString("Current instrument : " + string(fm->instrument[instr].name) + "\nSet Global " + kfx_globalParams[fm->instrument[instrList->value].kfx % 32]);
+						texts[0].setString(string(lang("effect", "Current instrument"))+" : " + string(fm->instrument[instr].name) + "\nSet Global " + kfx_globalParams[fm->instrument[instrList->value].kfx % 32]);
 					else
-						texts[0].setString("Current instrument : " + string(fm->instrument[instr].name) + "\nSet Operator " + std::to_string(fm->instrument[instrList->value].kfx / 32) + " : " + kfx_operatorParams[fm->instrument[instrList->value].kfx % 32]);
+						texts[0].setString(string(lang("effect", "Current instrument"))+" : " + string(fm->instrument[instr].name) + "\nSet Operator " + std::to_string(fm->instrument[instrList->value].kfx / 32) + " : " + kfx_operatorParams[fm->instrument[instrList->value].kfx % 32]);
 
 
 
 					texts[1].setString("");
-					sliders[0].name.setString("Value");
+					sliders[0].name.setString(lang("global", "Value"));
 					sprites[0].setColor(Color(255, 255, 255, 255));
 
 
@@ -203,11 +203,11 @@ void Popup::updateEffectDescription()
 			sliders[1].setVisible(true);
 			sliders[0].setMinMax(0, 2);
 			sliders[1].setMinMax(0, 11);
-			texts[0].setString("Set temperament");
+			texts[0].setString(lang("effects", "L_description"));
 			texts[1].setString("");
 
-			 sliders[0].name.setString("Temperament");
-			  sliders[1].name.setString("Base note");
+			 sliders[0].name.setString(lang("instrEditor", "Temperament"));
+			  sliders[1].name.setString(lang("popup", "Base note"));
 
 			string temperamentNames[3]={"Equal Tempered", "Werckmeister III", "Meantone"};
 			string noteNames[12]={"C","C#","D","D#","E","F","F#","G","G#","A","A#","B"};
@@ -223,10 +223,10 @@ void Popup::updateEffectDescription()
 
 		}
 		case 12: // M - Channel volume
-			texts[1].setString("Quiet											  Loud");
-			texts[0].setString("Set the channel volume");
+			texts[1].setString(lang("effects", "M_range"));
+			texts[0].setString(lang("effects", "M_description"));
 			sliders[0].setMinMax(0, 99);
-			sliders[0].name.setString("Volume");
+			sliders[0].name.setString(lang("global", "Volume"));
 			sprites[0].setColor(Color(255, 255, 255, 255));
 			break;
 		case 13:{ // N - Channel volume slide
@@ -234,21 +234,21 @@ void Popup::updateEffectDescription()
 					string s;
 					if (sliders[0].value < 127)
 					{
-						s = "Decrease ";
-						s += sliders[0].value < 64 ? "quickly" : "slowly"; /* Feel free to change every instance of "quickly" with a synonym of your own choice if "quickly" does not feel like that it conveys the same emotion that "fastly" did. */
+						s = string(lang("effects", "Decrease"))+" ";
+						s += sliders[0].value < 64 ? lang("effects", "Quickly") : lang("effects", "Slowly"); /* Feel free to change every instance of "quickly" with a synonym of your own choice if "quickly" does not feel like that it conveys the same emotion that "fastly" did. */
 					}
 					else if (sliders[0].value == 127)
 					{
-						s = "No change";
+						s = lang("effects", "No change");
 					}
 					else
 					{
-						s = "Increase ";
-						s += sliders[0].value < 192 ? "slowly" : "quickly";
+						s = string(lang("effects", "Increase"))+" ";
+						s += sliders[0].value < 192 ? lang("effects", "Slowly") : lang("effects", "Quickly");
 					}
-					texts[0].setString("Smooth channel volume slide :\n" + s);
+					texts[0].setString(string(lang("effects", "N_description"))+" :\n"+s);
 
-					texts[1].setString("Decrease	   No change        Increase");
+					texts[1].setString(lang("effects", "N_range"));
 					sliders[0].name.setString("");
 					sprites[0].setColor(Color(255, 255, 255, 255));
 		}
@@ -258,37 +258,37 @@ void Popup::updateEffectDescription()
 					string s;
 					if (sliders[0].value < 127)
 					{
-						s = "To left, ";
-						s += sliders[0].value < 64 ? "fast" : "slow";
+						s = string(lang("effects", "To left"))+", ";
+						s += sliders[0].value < 64 ? lang("effects", "Fast") : lang("effects", "Slow");
 					}
 					else if (sliders[0].value == 127)
 					{
-						s = "No change";
+						s = string(lang("effects", "No change"));
 					}
 					else
 					{
-						s = "To right, ";
-						s += sliders[0].value < 192 ? "slow" : "fast";
+						s = string(lang("effects", "To right"))+", ";
+						s += sliders[0].value < 192 ? lang("effects", "Slow") : lang("effects", "Fast");
 					}
-					texts[0].setString("Smooth panning slide :\n" + s);
-					texts[1].setString("To left			No change	      To right");
-					sliders[0].name.setString("Speed/direction");
+					texts[0].setString(string(lang("effects", "P_description"))+" :\n"+s);
+					texts[1].setString(lang("effects", "P_range"));
+					sliders[0].name.setString(lang("effects", "Speed/direction"));
 					sprites[0].setColor(Color(255, 255, 255, 255));
 		}
 			break;
 		case 15:{ // Q Note retrigger
 					sliders[0].setMinMax(0, 8);
-					texts[0].setString("Faslty repeat the note on the same row");
+					texts[0].setString(lang("effects", "Q_description"));
 					texts[1].setString("");
-					sliders[0].name.setString("Times per row");
+					sliders[0].name.setString(lang("effects", "Times per row"));
 					sprites[0].setColor(Color(255, 255, 255, 255));
 		}
 			break;
 		case 16: // R - Reverb send
-			texts[0].setString("Set the channel's reverb amount");
-			texts[1].setString("No reverb							 Max reverb");
+			texts[0].setString(lang("effects", "R_description"));
+			texts[1].setString(lang("effects", "R_range"));
 			sliders[0].setMinMax(0, 99);
-			sliders[0].name.setString("Amount");
+			sliders[0].name.setString(lang("effects", "Amount"));
 			sprites[0].setColor(Color(255, 255, 255, 255));
 			break;
 		case 17:{ // S - Global reverb params
@@ -296,68 +296,68 @@ void Popup::updateEffectDescription()
 					string s;
 					if (sliders[0].value <= 40)
 					{
-						s = "Room reveberation : " + std::to_string(sliders[0].value);
+						s = string(lang("effects", "Room reveberation"))+" : " + std::to_string(sliders[0].value);
 					}
 					else
 					{
-						s = "Room size : " + std::to_string(clamp(sliders[0].value - 40, 1, 40));
+						s = string(lang("effects", "Room size"))+" : " + std::to_string(clamp(sliders[0].value - 40, 1, 40));
 					}
-					texts[0].setString("Set reverb parameters :\n" + s);
+					texts[0].setString(string(lang("effects", "S_description"))+" :\n"+s);
 
 					texts[1].setString("");
 					sliders[0].setMinMax(0, 80);
-					sliders[0].name.setString("Value");
+					sliders[0].name.setString(lang("global", "Value"));
 					sprites[0].setColor(Color(255, 255, 255, 255));
 					break;
 		}
 		case 18: // T - Set tempo
-			texts[0].setString("Set the tempo (BPM)");
-			texts[1].setString("Slow												Fast");
+			texts[0].setString( lang("effects", "T_description"));
+			texts[1].setString(lang("effects", "T_range"));
 			sliders[0].setMinMax(0, 255);
 			sliders[0].name.setString("Tempo");
 			sprites[0].setColor(Color(255, 255, 255, 255));
 			break;
 		case 19: // V - Global volume
-			texts[0].setString("Set the global volume");
-			texts[1].setString("Quiet											  Loud");
+			texts[0].setString( lang("effects", "V_description"));
+			texts[1].setString(lang("effects", "V_range"));
 			sliders[0].setMinMax(0, 99);
 			sliders[0].name.setString("Volume");
 			sprites[0].setColor(Color(255, 255, 255, 255));
 			break;
-		case 20:{ // V - Global volume slide
+		case 20:{ // W - Global volume slide
 
 					sliders[0].setMinMax(0, 255);
 					string s;
 					if (sliders[0].value < 127)
 					{
-						s = "Decrease ";
+						s = string(lang("effects", "Decrease"))+" ";
 						s += sliders[0].value < 64 ? "quickly" : "slowly";
 					}
 					else if (sliders[0].value == 127)
 					{
-						s = "No change";
+						s =lang("effects", "No change");
 					}
 					else
 					{
-						s = "Increase ";
+						s = string(lang("effects", "Increase "))+" ";
 						s += sliders[0].value < 192 ? "slowly" : "quickly";
 					}
-					texts[0].setString("Smooth global volume slide :\n" + s);
-					texts[1].setString("Decrease	   No change        Increase");
+					texts[0].setString(string(lang("effects", "W_description"))+" :\n"+s);
+					texts[1].setString(lang("effects", "W_range"));
 					sliders[0].name.setString("");
 					sprites[0].setColor(Color(255, 255, 255, 255));
 					break; }
 		case 21: // X - Channel panning
-			texts[0].setString("Set channel panning");
-			texts[1].setString("Left				   Center				  Right");
+			texts[0].setString(lang("effects", "X_description"));
+			texts[1].setString(lang("effects", "X_range"));
 			sliders[0].setMinMax(0, 255);
-			sliders[0].name.setString("Pan");
+			sliders[0].name.setString(lang("effects", "Pan"));
 			sprites[0].setColor(Color(255, 255, 255, 255));
 			break;
 		case 22: // Y - Sync marker
 			sliders[0].setMinMax(0, 255);
-			texts[0].setString("Place a marker that will trigger a callback function");
-			sliders[0].name.setString("Marker ID");
+			texts[0].setString(lang("effects", "Y_description"));
+			sliders[0].name.setString(lang("effects", "Marker ID"));
 			texts[1].setString("");
 			sprites[0].setColor(Color(0, 0, 0, 0));
 			break;

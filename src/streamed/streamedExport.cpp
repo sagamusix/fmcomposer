@@ -33,8 +33,8 @@ static const char *exportFormats[3] = { "flac","wav","mp3"  };
 void promptStreamedExport()
 {
 	static const char *filterNames[3][1] = {{ "*.flac"},{"*.wav"},{"*.mp3"}  };
-	const char *descNames[3] = { "Export as FLAC","Export as WAVE","Export as MP3"  };
-	const char *typeNames[3] = { "FLAC file","WAVE file","MP3 file"  };
+	const char *descNames[3] = { lang("popup", "FLAC"),lang("popup", "Wave"),lang("popup", "MP3")  };
+	const char *typeNames[3] = { lang("popup", "FLAC file"),lang("popup", "WAVE file"),lang("popup","MP3 file")  };
 					
 	const char *fileName = tinyfd_saveFileDialog(descNames[streamedExport.format], NULL, 1, filterNames[streamedExport.format], typeNames[streamedExport.format]);
 	if (fileName)
@@ -107,7 +107,7 @@ void exportFinished(){
 	if (streamedExport.multitrackAssoc.size() == 0 || streamedExport.multiTrackIter >= streamedExport.multitrackAssoc.size()) {
 		popup->close();
 		if (!windowFocus){
-			tinyfd_notifyPopup("FM Composer", "Export finished !","info");
+			tinyfd_notifyPopup("FM Composer", lang("popup", "Export finished!"),"info");
 		}
 		streamedExport.running=0;
 		config->selectSoundDevice(config->approvedDeviceId,config->approvedSampleRate, config->currentLatency, true);

@@ -6,6 +6,7 @@
 #include "../pattern/songFileActions.hpp"
 #include "../../gui/sidebar.hpp"
 #include "../../gui/drawBatcher.hpp"
+#include "../../lang.h"
 
 extern List *instrList;
 
@@ -13,7 +14,7 @@ int noteMappings[110];
 
 ConfigEditor *config;
 
-CSimpleIniA ini_config, ini_theme, ini_gmlist, ini_keyboards;
+CSimpleIniA ini_config, ini_theme, ini_gmlist, ini_keyboards, ini_langs;
 
 
 
@@ -21,39 +22,57 @@ CSimpleIniA ini_config, ini_theme, ini_gmlist, ini_keyboards;
 ConfigEditor::ConfigEditor() :
 refreshMidiDevicesButton(295, 80, ICON_MD_REFRESH, 15,0,16),
 midiDevicesList(14, 100, 10, 300),
-midiInText("MIDI in device", font, charSize),
-midiQuantizeText("MIDI import quantization", font, charSize),
+midiInText(lang("config","MIDI in device"), font, charSize),
+midiQuantizeText(lang("config","MIDI import quantization"), font, charSize),
 diviseur(14, 350, 32, 1, "1 quarter note =", 8, 150),
-diviseurText("rows", font, charSize),
-rowHighlightText("Highlight pattern rows every", font, charSize),
+diviseurText(lang("config","rows"), font, charSize),
+rowHighlightText(lang("config","Highlight pattern rows every"), font, charSize),
 rowHighlightText2("", font, charSize),
 rowHighlight(210, 590, 8, 1, "", 4, 40),
 soundDevicesList(420, 100, 10, 360),
-soundDeviceText("Sound device", font, charSize),
-patternSize(14, 380, 256, 1, "Pattern size", 8, 200),
-samplerate(420, 280, 5, 0, "Sample Rate (hz)", 3, 170),
+soundDeviceText(lang("config","Sound device"), font, charSize),
+patternSize(14, 380, 256, 1, lang("config","Pattern size"), 8, 200),
+samplerate(420, 280, 5, 0, lang("config","Sample Rate (hz)"), 3, 170),
 sampleRateError("", font, charSize),
-openLastSong(14, 510, "Reopen last song")
-, themeFile(420, 400, 20, "Theme file : themes/"),
-themeText(" (restart FM Composer to apply changes)", font, charSize),
-midiImport("MIDI import", font, charSize),
-subquantize(14, 310, "Preserve unquantized notes"),
+openLastSong(14, 510, lang("config","Reopen last song"))
+, themeFile(420, 400, 20, string(lang("config","Theme file")+string(" : themes/"))),
+themeText(lang("config"," (restart FM Composer to apply changes)"), font, charSize),
+midiImport(lang("config","MIDI import"), font, charSize),
+subquantize(14, 310, lang("config","Preserve unquantized notes")),
 approvedSampleRate(-1), approvedDeviceId(-1),
 noteList(800, 120, 16, 90), keyList(894, 120, 16, 90),
-keyAssoc("Keyboard-Note Mappings", font, charSize),
-keyAssocHelp("Select note then press a key", font, charSize),
+keyAssoc(lang("config","Keyboard-Note Mappings"), font, charSize),
+keyAssocHelp(lang("config","Select note then press a key"), font, charSize),
 defaultQwerty(884, 438, "QWERTY", 62, 4),
 defaultAzerty(884, 410, "AZERTY", 62, 4),
 defaultQwertz(884, 466, "QWERTZ", 62, 4),
-latency(420, 300, 256, 0, "Desired latency (ms)", 0, 170),
-previewReverb(420, 480, 99, 0, "Note preview reverb", 10),
-startup("At startup", font, charSize),
-keyPreset("Presets :", font, charSize),
-defaultVolume(14, 410, 99, 0, "Song volume", 10),
-display("Display", font, charSize),
+latency(420, 300, 256, 0, lang("config","Desired latency (ms)"), 0, 170),
+previewReverb(420, 480, 99, 0, lang("config","Note preview reverb"), 10),
+startup(lang("config","At startup"), font, charSize),
+keyPreset(lang("config","Presets :"), font, charSize),
+defaultVolume(14, 410, 99, 0, lang("config","Song volume"), 10),
+display(lang("config","Display"), font, charSize),
 directXdevicesCount(0),
-wasapiExclusive(420, 325, "Exclusive mode")
+wasapiExclusive(420, 325, lang("config","Exclusive mode")),
+languageList(800, 500, 10, 360)
 {
+
+	if (ini_langs.LoadFile(string(appdir+"lang/langs.ini").c_str()) < 0)
+	{
+		error(lang("general", "Lang_error"));
+	}
+	CSimpleIni::TNamesDepend sections;
+
+	ini_langs.GetAllSections(sections);
+	CSimpleIni::TNamesDepend::const_iterator iSection = sections.begin();
+
+	for (; iSection != sections.end(); ++iSection)
+	{
+		languageList.add(string(ini_langs.GetValue(iSection->pItem, "name","")));
+		languageFilenames.push_back(ini_langs.GetValue(iSection->pItem, "file",""));
+	}
+
+
 	startup.setPosition(14, 480);
 	display.setPosition(14, 560);
 	hostnames[0] = "";
@@ -79,7 +98,7 @@ wasapiExclusive(420, 325, "Exclusive mode")
 	midiQuantizeText.setPosition(Vector2f(14, 280));
 	rowHighlightText.setPosition(Vector2f(14, 590));
 	rowHighlightText2.setPosition(Vector2f(14+250, 590));
-	keyMappingReset.add("Reset this key");
+	keyMappingReset.add(lang("config","Reset this key"));
 
 	patternSize.setValue(atoi(ini_config.GetValue("config", "defaultPatternSize", "128")));
 	defaultVolume.setValue(atoi(ini_config.GetValue("config", "defaultSongVolume", "60")));
@@ -232,11 +251,11 @@ void ConfigEditor::updateRowHighlightText()
 {
 	if (rowHighlight.value == 1)
 	{
-		rowHighlightText2.setString("rows (disabled)");
+		rowHighlightText2.setString(lang("config","rows (disabled)"));
 	}
 	else
 	{
-		rowHighlightText2.setString("rows");
+		rowHighlightText2.setString(lang("config","rows"));
 	}
 }
 
@@ -282,6 +301,7 @@ void ConfigEditor::draw()
 	drawBatcher.addItem(&defaultAzerty);
 	drawBatcher.addItem(&defaultQwerty);
 	drawBatcher.addItem(&defaultQwertz);
+	drawBatcher.addItem(&languageList);
 	drawBatcher.draw();
 
 	subquantize.draw();
@@ -302,7 +322,7 @@ void ConfigEditor::refresh()
 	vector<string> *deviceList = midi_refreshDevices();
 
 	midiDevicesList.text.clear();
-	midiDevicesList.add("No device");
+	midiDevicesList.add(lang("config","No device"));
 
 	for (int i = 0; i < deviceList->size(); i++)
 	{
@@ -352,7 +372,7 @@ void ConfigEditor::refreshMidiDevices()
 	vector<string> *deviceList = midi_refreshDevices();
 
 	midiDevicesList.text.clear();
-	midiDevicesList.add("No device");
+	midiDevicesList.add(lang("config","No device"));
 
 	for (int i = 0; i < deviceList->size(); i++)
 	{
@@ -406,6 +426,10 @@ void ConfigEditor::update()
 
 	defaultVolume.update();
 	previewReverb.update();
+	if (languageList.clicked())
+	{
+		lang_load(string("lang/"+languageFilenames[languageList.value]).c_str());
+	}
 
 	diviseur.update();
 	if (rowHighlight.update())
@@ -519,6 +543,8 @@ void iniparams_load()
 
 
 	loadColors(&ini_theme);
+
+	lang_load(ini_config.GetValue("config", "lang", string(appdir+"lang/english.ini").c_str()));
 }
 
 void ConfigEditor::handleEvents()

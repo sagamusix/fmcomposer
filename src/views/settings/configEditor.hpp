@@ -32,6 +32,7 @@ class ConfigEditor : public State{
 	Text diviseurText, rowHighlightText, sampleRateError, themeText, midiImport, keyAssoc, keyAssocHelp, startup, keyPreset, display, rowHighlightText2;
 	ListMenu keyMappingReset;
 	string hostnames[15];
+
 	public:
 	int directXdevicesCount;
 	int approvedSampleRate, approvedDeviceId, currentLatency;
@@ -39,12 +40,22 @@ class ConfigEditor : public State{
 	Checkbox subquantize;
 	List midiDevicesList, soundDevicesList;
 	List noteList, keyList;
+
+	
 	int currentSoundDeviceId;
 	int maxRecentSongCount;
 	DataSlider diviseur, rowHighlight, patternSize, samplerate, latency, defaultVolume;
 	DataSlider previewReverb;
 	string defaultPreloadedSound;
+
+	// add support for languages
+	List languageList;
+	vector<string> languageFilenames;
+
+
+
 	ConfigEditor();
+
 	void draw();
 	void update();
 	void refresh();

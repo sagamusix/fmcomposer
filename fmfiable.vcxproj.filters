@@ -270,6 +270,7 @@
     <ClCompile Include="src\gui\slider\dataslider.cpp">
       <Filter>gui\slider</Filter>
     </ClCompile>
+    <ClCompile Include="src\lang.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\fmengine\fmlib.h">
@@ -406,6 +407,9 @@
     </ClInclude>
     <ClInclude Include="src\gui\slider\dataslider.hpp">
       <Filter>gui\slider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lang.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -27,7 +27,7 @@ extern Popup *popup;
 extern char songDefaultPath[256];
 void* callbackFunc;
 
-string windowTitle = "FM Composer - New song";
+string windowTitle;
 extern Text notePreview;
 bool windowTooSmall;
 string lastSongOpened;
@@ -63,33 +63,7 @@ string pathSeparator = "\\";
 string pathSeparator = "/";
 #endif
 
-string intervals[25] = {
-	"Perfect unison",
-	"Minor second",
-	"Major second",
-	"Minor third",
-	"Major third",
-	"Perfect fourth",
-	"Tritone",
-	"Perfect fifth",
-	"Minor sixth",
-	"Major sixth",
-	"Minor seventh",
-	"Major seventh",
-	"Perfect octave",
-	"Minor ninth",
-	"Major ninth",
-	"Minor tenth",
-	"Major tenth",
-	"Perfect eleventh",
-	"Augmented eleventh",
-	"Perfect twelfth",
-	"Minor thirteenth",
-	"Major thirteenth",
-	"Minor fourteenth",
-	"Major fourteenth",
-	"Double octave"
-};
+string intervals[25];
 
 int keyboard2note(int keyCode)
 {
@@ -401,7 +375,7 @@ void global_initialize()
 	}
 	else
 	{
-		error("Can't get the application directory.");
+		error(lang("globalFunctions", "Directory_error"));
 	}
 
 #else 
@@ -413,15 +387,22 @@ void global_initialize()
 	/* Load config files (preferences, last songs, midi instrument list..) */
 	iniparams_load();
 
+	for (int i = 0; i < 25; i++)
+	{
+		intervals[i]=lang("intervals", to_string(i).c_str());
+	}
+
+	windowTitle = string("FM Composer - ")+lang("globalFunctions", "windowTitle");
+
 	/* Initialize libraries and sound engine */
 	if (!(fm = fm_create(44100)))
 	{
-		error("Can't initialize the FM synthesizer");
+		error(lang("globalFunctions", "FM_error"));
 	}
 
 	if (Pm_Initialize() != pmNoError)
 	{
-		error("Can't initialize PortMidi");
+		error(lang("globalFunctions", "MIDI_error"));
 	}
 
 	midiReceiveEnable(1);
@@ -431,7 +412,7 @@ void global_initialize()
 	if ((err = Pa_Initialize()) != paNoError)
 	{
 		error(Pa_GetErrorText(err));
-		error("Can't initialize PortAudio");
+		error(lang("globalFunctions", "Audio_error"));
 	}
 	else
 	{

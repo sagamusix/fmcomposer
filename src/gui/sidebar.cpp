@@ -8,12 +8,12 @@ Sidebar *sidebar;
 
 Sidebar::Sidebar() :
 borderRight(Vector2f(300, 1000)),
-octave(1070, 240, 7, 0, "Octave", 4),
-currentInstr("Instrument list", font, charSize),
+octave(1070, 240, 7, 0, lang("global", "Octave"), 4),
+currentInstr(lang("sidebar", "Instrument list"), font, charSize),
 timer("", font, charSize),
 notePreview("", font, charSize),
-defNoteVol(1070, 220, 99, 0, "Volume", 70),
-editingStep(1070, 270, 16, 0, "Editing step",0)
+defNoteVol(1070, 220, 99, 0, lang("global", "Volume"), 70),
+editingStep(1070, 270, 16, 0, lang("sidebar","Editing step"),0)
 {
 	vuMeter = new StereoVuMeter(1100, 50);
 
@@ -66,7 +66,7 @@ void Sidebar::draw()
 		string currentTime = formatTime(time);
 		string totalTime = formatTime(length);
 
-		timer.setString(currentTime + "\n" + totalTime + "\n\n" + to_string(fm->tempo) + " BPM");
+		timer.setString(currentTime + "\n" + totalTime + "\n\n" + to_string(fm->tempo) + " "+string(lang("global", "BPM")));
 
 	}
 

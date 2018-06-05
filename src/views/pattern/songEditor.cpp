@@ -11,9 +11,9 @@ SongEditor *songEditor;
 
 SongEditor::SongEditor() : rowNumbers("", font, charSize), playCursor(Vector2f(CH_WIDTH*FM_ch, ROW_HEIGHT))
 , scroll(0), add(0, 52, ICON_MD_ADD,14,0), patText("Patterns", font, charSize)
-, patSize(1070, 700, 256, 1, "Pattern size", 128, 150), resize(1230, 700, "Resize"), patSlider(0, 255, 0, 0.1, 1050 - 1, 169, 600, false)
+, patSize(1070, 700, 256, 1, lang("sidebar","Pattern size"), 128, 150), resize(1230, 700, lang("sidebar","Resize")), patSlider(0, 255, 0, 0.1, 1050 - 1, 169, 600, false)
 , movePat(-1), selectedRow(0), selectedChannel(0), selectedType(0), scrollX(0),
-expand(1070, 730, "Scale x2"), shrink(1150, 730, "Scale /2"), resetMute(0, 89, ICON_MD_CLOSE,14), mouseXpat(0), mouseYpat(0), searched(false),
+expand(1070, 730, lang("sidebar","Scale x2")), shrink(1150, 730, lang("sidebar","Scale /2")), resetMute(0, 89, ICON_MD_CLOSE,14), mouseXpat(0), mouseYpat(0), searched(false),
 selected(false), patternList(120, 52), zoom(1),
 patHSlider(0, 255, 0, 0.1, 0, 169, 600, false, true)
 {
