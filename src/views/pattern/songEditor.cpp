@@ -648,8 +648,6 @@ void SongEditor::moveCursorAfterDataEntered()
 	moveCursor(false);
 	moveY(selectedRow);
 	selected = 0;
-	if (Mouse::isButtonPressed(Mouse::Left))
-		selectionDisappear();
 }
 
 void SongEditor::setZoom(float _zoom)

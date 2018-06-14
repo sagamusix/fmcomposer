@@ -70,8 +70,9 @@ void SongEditor::doubleClick()
 				popup->show(POPUP_SETNOTE);
 			}
 		}
-		else
+		else {
 			popup->show(popups[selectedType]);
+		}
 
 		/* Effect is already set ? Pre-select it in popup */
 		if (selectedType == 3)

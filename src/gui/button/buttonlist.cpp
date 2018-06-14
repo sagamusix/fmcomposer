@@ -21,7 +21,7 @@ void ButtonList::updateButtonPos()
 {
 
 	scroll = clamp(selectedIndex - 23, 0, (int)buttons.size());
-	int xpos = x;
+	int xpos = buttons[scroll].x;
 
 	for (unsigned i = scroll; i < min<int>(buttons.size(), scroll + 46); ++i)
 	{

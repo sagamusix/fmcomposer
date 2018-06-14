@@ -64,15 +64,27 @@ void Popup::updateEffectDescription()
 		case 0:{ // Arpeggio
 				   sliders[0].setMinMax(0, 255);
 
-				   int pos = fm->order * 128 + fm->row;
+				   int row = fm->row;
+				   int order=fm->order;
 				   int maxBackward = 128;
-				   while (maxBackward-- > 0 && pos > 0 && fm->pattern[pos / 128][pos % 128][songEditor->selectedChannel].note > 127)
+				   while (maxBackward-- > 0 && (order == 0 && row>=0 || order>0) && fm->pattern[order][row][songEditor->selectedChannel].note > 127)
 				   {
-					   pos--;
+					   row--;
+					   if (row < 0)
+					   {
+						   order--;
+						   if (order < 0)
+						   {
+							   order=0;
+							   row=0;
+							   break;
+						   }
+						   row = fm->patternSize[order]-1;
+					   }
 				   }
-				   if (fm->pattern[pos / 128][pos % 128][songEditor->selectedChannel].note < 128)
+				   if (fm->pattern[order][row][songEditor->selectedChannel].note < 128)
 				   {
-					   int baseNote = fm->pattern[pos / 128][pos % 128][songEditor->selectedChannel].note;
+					   int baseNote = fm->pattern[order][row][songEditor->selectedChannel].note;
 
 					   texts[0].setString(string(lang("effects", "Play a fast triplet arpeggio"))+" :\n>" + noteName(baseNote) + L"\n> " + noteName(baseNote + sliders[0].value % 16) + " (" + intervals[sliders[0].value % 16] + L")\n> " + noteName(baseNote + sliders[0].value / 16) + " (" + intervals[sliders[0].value / 16] + ") ");
 				   }

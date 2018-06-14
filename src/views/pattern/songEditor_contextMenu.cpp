@@ -162,6 +162,6 @@ void SongEditor::preSelectPopupEffect()
 			popup->sliders[0].setValue(fm->pattern[fm->order][fm->row][selectedChannel].fxdata);
 		}
 
-	}
+	}printf("%d\n", fm->pattern[fm->order][fm->row][selectedChannel].fx - 65);
 	popup->updateEffectDescription();
 }
