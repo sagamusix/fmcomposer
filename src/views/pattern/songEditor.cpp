@@ -451,9 +451,9 @@ void SongEditor::updateMutedChannels()
 
 void SongEditor::setXscroll(int value, bool updateSlider)
 {
-	scrollXsmooth=clamp(value,0,FM_ch*CH_WIDTH - ((int)(windowWidth - 231))+32*zoom);
+	scrollXsmooth=clamp(value,0,max(0,FM_ch*CH_WIDTH - ((int)(windowWidth - 231))+32*zoom));
 	scrollX = scrollXsmooth/CH_WIDTH;
-	scrollX2 = min(FM_ch, scrollX + (windowWidth - 231) / CH_WIDTH + 2);
+	scrollX2 = clamp(scrollX + (windowWidth - 231) / CH_WIDTH + 2, 0, FM_ch);
 
 	patternView.setCenter((float)windowWidth / 2 + scrollXsmooth, patternView.getCenter().y);
 	patternTopView.setCenter((float)windowWidth / 2 + scrollXsmooth, (float)windowHeight / 2 - 85);
